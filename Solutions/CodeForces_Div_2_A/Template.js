@@ -24,27 +24,9 @@ function readline() {
 function main() {
   // Number //
   // String //
-  let n = readline().replace(/\n/g, "");
-  let numsTemp = readline().replace(/\r/g, "");
-
-  let nums = numsTemp.split(" ");
-  let totalSum = nums.reduce((sum, item) => {
-    sum = sum + parseInt(item);
-    return sum;
-  }, 0);
-  let sortedArray = nums.sort(function (a, b) {
-    return a - b;
-  });
-  let i = parseInt(n) - 1;
-  let currentSum = 0;
-  let count = 0;
-  while (i >= 0) {
-    count++;
-    currentSum = parseInt(currentSum) + parseInt(sortedArray[i]);
-    if (parseInt(totalSum / 2) < currentSum) {
-      console.log(count);
-      return;
-    }
-    i--;
-  }
+  // let n = readline().replace(/\n/g, "");
+  let paragraph = readline().replace(/\r/g, "");
+  const regex = /[a-z]*?h+[a-df-z]*?e+[a-km-z]*?l+[a-km-z]*?l+[a-np-z]*?o+/g;
+  const found = paragraph.match(regex);
+  found !== null ? console.log("YES") : console.log("NO");
 }
