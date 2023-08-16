@@ -1,17 +1,19 @@
-let n = 3;
-let nums = [1,1,1,9];
-let totalSum = nums.reduce((sum, itme) => {
-  sum = sum + itme;
+let n = '5';
+let nums = ['4','2','2','2','2'];
+let totalSum = nums.reduce((sum, item) => {
+  sum = sum + parseInt(item);
   return sum;
 }, 0);
-let sortedArray = nums.sort();
-let i = sortedArray.length - 1;
+let sortedArray = nums.sort(function(a, b) {
+  return a - b;
+});
+let i = parseInt(n) -1;
 let currentSum = 0;
 let count = 0;
 while (i >= 0) {
   count++;
-  currentSum = currentSum + sortedArray[i];
-  if (totalSum / 2 + 1 < currentSum) {
+  currentSum = parseInt(currentSum) + parseInt(sortedArray[i]);
+  if (parseInt(totalSum / 2)  < currentSum) {
     console.log(count);
     return;
   }
