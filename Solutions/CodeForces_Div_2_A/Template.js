@@ -25,30 +25,10 @@ function main() {
   // Number //
   // String //
   let n = +readline().replace(/\n/g, "");
-  let array1 = readline()
-    .replace(/\n/g, "")
-    .split(" ")
-    .map((x) => parseInt(x));
-  let array2 = readline()
-    .replace(/\n/g, "")
-    .split(" ")
-    .map((x) => parseInt(x));
-
-  let array3 = [
-    ...new Set(
-      [
-        ...array1.slice(0, array1.length),
-        ...array2.slice(0, array2.length),
-      ].sort()
-    ),
-  ];
-  let output = "I become the guy.";
-  for (let i = 0; i < n; i++) {
-    if (i + 1 !== array3[i]) {
-      output = "Oh, my keyboard!";
-      break;
-    }
+  let reserved = n % 2 == 0 ? n / 2 : (n + 1) / 2;
+  if(p<=reserved){
+  console.log(p+(p-1))
+  }else{
+  console.log((p-reserved)*2)
   }
-
-  console.log(output);
 }
