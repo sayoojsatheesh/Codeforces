@@ -24,24 +24,31 @@ function readline() {
 function main() {
   // Number //
   // String //
-  let string = +readline().replace(/\n/g, "");
-  let stringArray = string.split("").filter((item) => {
-    if (item !== "{" && item !== " " && item !== "}" && item !== ",") {
-      return item;
+  let n = +readline().replace(/\n/g, "");
+  let array1 = readline()
+    .replace(/\n/g, "")
+    .split(" ")
+    .map((x) => parseInt(x));
+  let array2 = readline()
+    .replace(/\n/g, "")
+    .split(" ")
+    .map((x) => parseInt(x));
+
+  let array3 = [
+    ...new Set(
+      [
+        ...array1.slice(0, array1.length),
+        ...array2.slice(0, array2.length),
+      ].sort()
+    ),
+  ];
+  let output = "I become the guy.";
+  for (let i = 0; i < n; i++) {
+    if (i + 1 !== array3[i]) {
+      output = "Oh, my keyboard!";
+      break;
     }
-  });
-  let distinct = [];
-  if (string.length <= 2) {
-    console.log(0);
-  } else {
-    stringArray.map((item) => {
-      let found = distinct.some((disintItem) => {
-        return item == disintItem;
-      });
-      if (!found) {
-        distinct.push(item);
-      }
-    });
   }
-  console.log(distinct.length);
+
+  console.log(output);
 }
