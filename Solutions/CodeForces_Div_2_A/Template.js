@@ -24,5 +24,7 @@ function readline() {
 function main() {
   // Number //
   // String //
-  let nums = readline().replace(/\n/g, "").split(' ');
+  let string = parseInt(readline().replace(/\n/g, ""));
+  let matches = string.split("WUB").join("");
+  console.log(matches);
 }
