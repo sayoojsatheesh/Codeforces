@@ -24,7 +24,26 @@ function readline() {
 function main() {
   // Number //
   // String //
-  let string = parseInt(readline().replace(/\n/g, ""));
-  let matches = string.split("WUB").join("");
-  console.log(matches);
+  let n = readline().replace(/\n/g, "");
+  let array = [];
+  for (let i = 0; i < n; i++) {
+    let x = readline()
+      .replace(/\n/g, "")
+      .split(" ")
+      .map((x) => parseInt(x));
+    array.push(x);
+  }
+
+  let total = 1;
+  for (let i = 0; i < n; i++) {
+    let s1 = array[i][0] + array[i][1] + array[i][2];
+    
+    total = total * s1;
+  }
+  if (total <= 0) {
+    console.log("YES");
+  } else {
+    console.log("NO");
+  }
+  console.log(total);
 }
