@@ -25,25 +25,24 @@ function main() {
   // Number //
   // String //
   let n = readline().replace(/\n/g, "");
-  let array = [];
-  for (let i = 0; i < n; i++) {
-    let x = readline()
-      .replace(/\n/g, "")
-      .split(" ")
-      .map((x) => parseInt(x));
-    array.push(x);
+  let m = readline().replace(/\n/g, "");
+  let puzzle = readline()
+    .replace(/\n/g, "")
+    .split(" ")
+    .map((x) => parseInt(x));
+  array.push(x);
+  let largest = Math.max(...puzzle);
+  let frequencyCounter = new Array(largest + 1).fill(0);
+  let sortedArray = [];
+  for (let i = 0; i < m; i++) {
+    frequencyCounter[puzzle[i]]++;
   }
-
-  let total = 1;
-  for (let i = 0; i < n; i++) {
-    let s1 = array[i][0] + array[i][1] + array[i][2];
-    
-    total = total * s1;
+  for (let i = 0; i < frequencyCounter.length; i++) {
+    while (frequencyCounter[i] > 0) {
+      frequencyCounter[i]--;
+      sortedArray.push(i);
+    }
   }
-  if (total <= 0) {
-    console.log("YES");
-  } else {
-    console.log("NO");
-  }
-  console.log(total);
+  let minimumValue = sortedArray[n - 1] - sortedArray[0];
+  console.log(minimumValue);
 }
