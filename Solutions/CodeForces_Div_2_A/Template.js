@@ -24,25 +24,24 @@ function readline() {
 function main() {
   // Number //
   // String //
-  let n = readline().replace(/\n/g, "");
-  let m = readline().replace(/\n/g, "");
-  let puzzle = readline()
-    .replace(/\n/g, "")
-    .split(" ")
-    .map((x) => parseInt(x));
-  array.push(x);
-  let largest = Math.max(...puzzle);
-  let frequencyCounter = new Array(largest + 1).fill(0);
-  let sortedArray = [];
-  for (let i = 0; i < m; i++) {
-    frequencyCounter[puzzle[i]]++;
-  }
-  for (let i = 0; i < frequencyCounter.length; i++) {
-    while (frequencyCounter[i] > 0) {
-      frequencyCounter[i]--;
-      sortedArray.push(i);
+  let string = +readline().replace(/\n/g, "");
+  let stringArray = string.split("").filter((item) => {
+    if (item !== "{" && item !== " " && item !== "}" && item !== ",") {
+      return item;
     }
+  });
+  let distinct = [];
+  if (string.length <= 2) {
+    console.log(0);
+  } else {
+    stringArray.map((item) => {
+      let found = distinct.some((disintItem) => {
+        return item == disintItem;
+      });
+      if (!found) {
+        distinct.push(item);
+      }
+    });
   }
-  let minimumValue = sortedArray[n - 1] - sortedArray[0];
-  console.log(minimumValue);
+  console.log(distinct.length);
 }

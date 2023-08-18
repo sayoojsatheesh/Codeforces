@@ -1,0 +1,10 @@
+let a = 1;
+let b = 1;
+let c = 1;
+let sum = [];
+sum[0] = a + b * c;
+sum[1] = a * (b + c);
+sum[2] = a * b * c;
+sum[3] = (a + b) * c;
+sum[4] = a + b + c;
+console.log(Math.max(...sum));
