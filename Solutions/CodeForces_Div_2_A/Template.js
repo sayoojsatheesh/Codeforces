@@ -28,26 +28,31 @@ function main() {
     .replace(/\n/g, "")
     .split(" ")
     .map((x) => parseInt(x));
-  let s = temp[0];
-  let n = temp[1];
-  let rounds=[]
-  for (let i = 0; i < n; i++) {
-    let temp2 = readline()
-    .replace(/\n/g, "")
-    .split(" ")
-    .map((x) => parseInt(x));
-    rounds.push(temp2);
-  }
-
-  let flag = "YES";
-for (let i = 0; i < n; i++) {
-  if (rounds[i][0] < s) {
-    s = s + rounds[i][1];
-  } else {
-    flag = "NO";
-    break;
-  }
-}
-console.log(flag);
-
+    let n=temp[0];
+    let m=temp[1];
+    console.log(n,m)
+    if (n < m) {
+      console.log(-1);
+      return;
+    } else {
+      let countOnes = 0;
+      let minimumsteps = 0;
+      let flag=false;
+      while (n > 0) {
+        let half = (n - countOnes) / 2;
+        if (half % m == 0) {
+          minimumsteps = half + countOnes;
+          flag=true;
+          break;
+        } else {
+          countOnes++;
+        }
+      }
+      if(flag){
+        console.log(minimumsteps);
+      }else{
+        console.log(-1)
+      }
+     
+    }
 }
