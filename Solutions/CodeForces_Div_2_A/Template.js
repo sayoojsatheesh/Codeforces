@@ -24,31 +24,41 @@ function readline() {
 function main() {
   // Number //
   // String //
-  let integer = readline().replace(/\n/g, "");
-  if (integer < 0) {
-    let tempValue1;
-    let tempValue2;
-    if (integer.length == 2) {
-      console.log(0);
-    } else if (integer.length == 3) {
-      tempValue1 = "-" + integer[1];
-      tempValue2 = "-" + integer[2];
-      if (tempValue1 <= tempValue2) {
-        console.log(tempValue1);
-      } else {
-        console.log(tempValue2);
-      }
-    } else {
-      tempValue1 = integer.slice(0, integer.length - 1);
-      tempValue2 =
-        integer.slice(0, integer.length - 2) + integer[integer.length - 1];
-      if (tempValue1 <= tempValue2) {
-        console.log(tempValue1);
-      } else {
-        console.log(tempValue2);
-      }
-    }
+  let temp = readline()
+    .replace(/\n/g, "")
+    .split(" ")
+    .map((x) => parseInt(x));
+  let x1 = temp[0];
+  let y1 = temp[1];
+  let x2 = temp[2];
+  let y2 = temp[3];
+
+  let x3;
+  let y3;
+  let x4;
+  let y4;
+  if (x1 != x2 && y1 != y2 && Math.abs(x1 - x2) != Math.abs(y1 - y2)) {
+    console.log(-1);
+    return;
+  } else if (x1 == x2) {
+    let length = Math.abs(y2 - y1);
+    y3 = y1;
+    y4 = y2;
+    x3 = x1 + length;
+    x4 = x2 + length;
+    console.log(x3, y3, x4, y4);
+  } else if (y1 == y2) {
+      x3=x1;
+      x4=x2;
+      let length=Math.abs(x1-x2);
+      y3=y1+length;
+      y4=y2+length;
+      console.log(x3, y3, x4, y4);
   } else {
-    console.log(integer);
+    console.log(x1, y2, x2, y1);
   }
+  
+
+  
+ 
 }
