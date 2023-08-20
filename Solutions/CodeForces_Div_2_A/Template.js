@@ -28,48 +28,18 @@ function main() {
     .replace(/\n/g, "")
     .split(" ")
     .map((x) => parseInt(x));
-  let r = temp[0];
-  let c = temp[1];
-  let snakePattern = "";
-  let direction;
-  let directionShifter = true;
-  for (let i = 1; i <= r; i++) {
-    for (let j = 1; j <= c; j++) {
-      if (i == 1) {
-        snakePattern = snakePattern + "# ";
-        if (j == c) {
-          direction = "right";
-        }
-      } else if (i == r) {
-        snakePattern = snakePattern + "# ";
-      } else {
-        if (direction == "right") {
-          if (j !== c) {
-            snakePattern = snakePattern + ". ";
-          } else {
-            snakePattern = snakePattern + "#";
-            direction = "full";
-          }
-        } else if (direction == "full") {
-          snakePattern = snakePattern + "# ";
-          if (j == c) {
-            direction = directionShifter ? "left" : "right";
-            directionShifter = !directionShifter;
-          }
-        } else if (direction == "left") {
-          if (j == 1) {
-            snakePattern = snakePattern + "# ";
-          } else {
-            snakePattern = snakePattern + ". ";
-            if (j == c) {
-              direction = "full";
-            }
-          }
-        }
+  let n = temp[0];
+  let k = temp[1];
+  let teamMembers = readline()
+    .replace(/\n/g, "")
+    .split(" ")
+    .map((x) => parseInt(x));
+    let value = 5 - k;
+    let count = 0;
+    for (let i = 0; i <= n; i++) {
+      if (teamMembers[i] <= value) {
+        count++;
       }
     }
-    snakePattern = snakePattern + "\n";
-  }
-
-  console.log(snakePattern);
+    console.log(Math.floor(count/3))
 }
