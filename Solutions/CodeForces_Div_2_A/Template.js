@@ -24,35 +24,33 @@ function readline() {
 function main() {
   // Number //
   // String //
-  let temp = readline()
+  let n = +readline().replace(/\n/g, "");
+  let t = readline()
     .replace(/\n/g, "")
     .split(" ")
     .map((x) => parseInt(x));
-    let n=temp[0];
-    let m=temp[1];
-    console.log(n,m)
-    if (n < m) {
-      console.log(-1);
-      return;
+  let t1 = [];
+  let t2 = [];
+  let t3 = [];
+  for (let i = 0; i < n; i++) {
+    if (t[i] === 1) {
+      t1.push({ value: 1, index: i + 1 });
+    } else if (t[i] === 2) {
+      t2.push({ value: 2, index: i + 1 });
     } else {
-      let countOnes = 0;
-      let minimumsteps = 0;
-      let flag=false;
-      while (n > 0) {
-        let half = (n - countOnes) / 2;
-        if (half % m == 0) {
-          minimumsteps = half + countOnes;
-          flag=true;
-          break;
-        } else {
-          countOnes++;
-        }
-      }
-      if(flag){
-        console.log(minimumsteps);
-      }else{
-        console.log(-1)
-      }
-     
+      t3.push({ value: 3, index: i + 1 });
     }
+  }
+  let count = 0;
+  let print = "";
+  for (let i = 0; i < n; i++) {
+    if (t1[i] && t2[i] && t3[i]) {
+      count++;
+      print = print + `${t1[i].index} ${t2[i].index} ${t3[i].index} \n`;
+    } else {
+      break;
+    }
+  }
+  console.log(count);
+  console.log(print);
 }
