@@ -28,54 +28,41 @@ function main() {
     .replace(/\n/g, "")
     .split(" ")
     .map((x) => parseInt(x));
-  let r = temp[0];
-  let c = temp[1];
-  let maze = [];
-  for (let i = 0; i < r; i++) {
-    let teamMembers = readline()
-      .replace(/\n/g, "")
-      .split(" ")
-      .map((x) => parseInt(x));
-    maze.push(teamMembers);
+  let n = temp[0];
+  let k = temp[1];
+  let list=[];
+  for(let i=0;i<n;i++){
+    let temp = readline()
+    .replace(/\n/g, "")
+    .split(" ")
+    .map((x) => parseInt(x));
+    list.push(temp)
   }
-
-  function deepCopy(arr) {
-    return arr.map((innerArr) => [...innerArr]);
-  }
-  let mazeTemp = deepCopy(maze);
-  let cakeEate = 0;
-  let tempcakeEate;
-  for (let i = 0; i < r; i++) {
-    tempcakeEate = 0;
-    for (let j = 0; j < c; j++) {
-      if (maze[i][j] == "S") {
-        mazeTemp[i] = [...maze[i]];
-        tempcakeEate = 0;
-        break;
-      } else if (maze[i][j] == ".") {
-        tempcakeEate = tempcakeEate + 1;
-        mazeTemp[i][j] = "ate";
+  let totalList = [];
+  let count = 0;
+  for (let i = 0; i < n; i++) {
+    let flag = false;
+    const total = list[i].slice(1).reduce((total, item, index) => {
+      if (item < k) {
+        flag = true;
       }
+      return total + item;
+    }, 0);
+    if (flag) {
+      count++;
     }
-
-    cakeEate = cakeEate + tempcakeEate;
+    totalList.push({ total, index: list[i][0] });
   }
-  tempcakeEate = 0;
-  let i = 0;
-  while (i < c) {
-    tempcakeEate = 0;
-    for (let j = 0; j < r; j++) {
-      if (mazeTemp[j][i] == "S") {
-        tempcakeEate = 0;
-        break;
-      } else if (mazeTemp[j][i] == ".") {
-        tempcakeEate = tempcakeEate + 1;
-        mazeTemp[j][i] = "ate";
-      }
-    }
-    cakeEate = cakeEate + tempcakeEate;
-    i++;
+  let sortedList = totalList.sort((a, b) => {
+    return a.total - b.total;
+  });
+  
+  let order = "";
+  sortedList.map((item) => {
+    order = order + `${item.index} `;
+  });
+  console.log(count);
+  if (count) {
+    console.log(order);
   }
-
-  console.log(cakeEate);
-}
+}  
