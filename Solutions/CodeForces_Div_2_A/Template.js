@@ -28,18 +28,54 @@ function main() {
     .replace(/\n/g, "")
     .split(" ")
     .map((x) => parseInt(x));
-  let n = temp[0];
-  let k = temp[1];
-  let teamMembers = readline()
-    .replace(/\n/g, "")
-    .split(" ")
-    .map((x) => parseInt(x));
-    let value = 5 - k;
-    let count = 0;
-    for (let i = 0; i <= n; i++) {
-      if (teamMembers[i] <= value) {
-        count++;
+  let r = temp[0];
+  let c = temp[1];
+  let maze = [];
+  for (let i = 0; i < r; i++) {
+    let teamMembers = readline()
+      .replace(/\n/g, "")
+      .split(" ")
+      .map((x) => parseInt(x));
+    maze.push(teamMembers);
+  }
+
+  function deepCopy(arr) {
+    return arr.map((innerArr) => [...innerArr]);
+  }
+  let mazeTemp = deepCopy(maze);
+  let cakeEate = 0;
+  let tempcakeEate;
+  for (let i = 0; i < r; i++) {
+    tempcakeEate = 0;
+    for (let j = 0; j < c; j++) {
+      if (maze[i][j] == "S") {
+        mazeTemp[i] = [...maze[i]];
+        tempcakeEate = 0;
+        break;
+      } else if (maze[i][j] == ".") {
+        tempcakeEate = tempcakeEate + 1;
+        mazeTemp[i][j] = "ate";
       }
     }
-    console.log(Math.floor(count/3))
+
+    cakeEate = cakeEate + tempcakeEate;
+  }
+  tempcakeEate = 0;
+  let i = 0;
+  while (i < c) {
+    tempcakeEate = 0;
+    for (let j = 0; j < r; j++) {
+      if (mazeTemp[j][i] == "S") {
+        tempcakeEate = 0;
+        break;
+      } else if (mazeTemp[j][i] == ".") {
+        tempcakeEate = tempcakeEate + 1;
+        mazeTemp[j][i] = "ate";
+      }
+    }
+    cakeEate = cakeEate + tempcakeEate;
+    i++;
+  }
+
+  console.log(cakeEate);
 }
