@@ -29,16 +29,29 @@ function main() {
     .split("")
     .map((x) => parseInt(x));
   let n = temp[0];
-  let b = temp[1];
-  let days = readline()
-    .replace(/\n/g, "")
-    .split("")
-    .map((x) => parseInt(x));
-  let moneyEarned = 0;
+  let k = temp[1];
+  let all = [];
+  for (let j = 0; j < n; j++) {
+    let x = readline()
+      .replace(/\n/g, "")
+      .split("")
+      .map((x) => parseInt(x));
+    all.push(x);
+  }
+  let largest = 0;
+  let happy = 0;
   for (let i = 0; i < n; i++) {
-    if (days[i] - days[i + 1] > moneyEarned) {
-      moneyEarned = days[i] - days[i + 1];
+    if (all[i][1] > k) {
+      happy = all[i][0] - (all[i][1] - k);
+    } else {
+      happy = all[i][0];
+    }
+    if (i == 0) {
+      largest = happy;
+    }
+    if (happy > largest) {
+      largest = happy;
     }
   }
-  console.log(moneyEarned - b);
+  console.log(largest);
 }
