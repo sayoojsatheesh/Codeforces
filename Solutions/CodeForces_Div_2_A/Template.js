@@ -24,45 +24,70 @@ function readline() {
 function main() {
   // Number //
   // String //
-  let temp = readline()
-    .replace(/\n/g, "")
-    .split(" ")
-    .map((x) => parseInt(x));
-  let n = temp[0];
-  let k = temp[1];
-  let list=[];
-  for(let i=0;i<n;i++){
-    let temp = readline()
-    .replace(/\n/g, "")
-    .split(" ")
-    .map((x) => parseInt(x));
-    list.push(temp)
-  }
-  let totalList = [];
-  let count = 0;
+  let n = +readline().replace(/\n/g, "");
+  let checkBoard = [];
   for (let i = 0; i < n; i++) {
-    let flag = false;
-    const total = list[i].slice(1).reduce((total, item, index) => {
-      if (item < k) {
-        flag = true;
+    let temp = readline()
+      .replace(/\r/g, "")
+      .split("")
+      .map((x) => x.toString());
+    checkBoard.push(temp);
+  }
+  let flagIsEven = true;
+  if (n == 1 ) {
+    console.log("YES");
+    return;
+  } 
+  let findX = checkBoard.some((item) => {
+    let subFind = item.some((item) => {
+      if (item == "x") {
+        return true;
       }
-      return total + item;
-    }, 0);
-    if (flag) {
-      count++;
+    });
+    if (subFind) {
+      return true;
     }
-    totalList.push({ total, index: list[i][0] });
-  }
-  let sortedList = totalList.sort((a, b) => {
-    return a.total - b.total;
   });
-  
-  let order = "";
-  sortedList.map((item) => {
-    order = order + `${item.index} `;
-  });
-  console.log(count);
-  if (count) {
-    console.log(order);
+  if (!findX) {
+    console.log("NO");
+    return;
   }
-}  
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n; j++) {
+      if (i == 0) {
+        let left = checkBoard[i][j - 1] == "o" ? 1 : 0;
+        let right = checkBoard[i][j + 1] == "o" ? 1 : 0;
+        let bottom = 0;
+        if (n !== 1) {
+          bottom = checkBoard[i + 1][j] == "o" ? 1 : 0;
+        }
+        let count = left + right + bottom;
+        if (count !== 0 && count % 2 !== 0) {
+          flagIsEven = false;
+        }
+      } else if (i == n - 1) {
+        let left = checkBoard[i][j - 1] == "o" ? 1 : 0;
+        let right = checkBoard[i][j + 1] == "o" ? 1 : 0;
+        let top = checkBoard[i - 1][j] == "o" ? 1 : 0;
+        let count = left + right + top;
+        if (count !== 0 && count % 2 !== 0) {
+          flagIsEven = false;
+        }
+      } else {
+        let left = checkBoard[i][j - 1] == "o" ? 1 : 0;
+        let right = checkBoard[i][j + 1] == "o" ? 1 : 0;
+        let top = checkBoard[i + 1][j] == "o" ? 1 : 0;
+        let bottom = checkBoard[i - 1][j] == "o" ? 1 : 0;
+        let count = left + right + top + bottom;
+        if (count !== 0 && count % 2 !== 0) {
+          flagIsEven = false;
+        }
+      }
+    }
+  }
+  if (flagIsEven) {
+    console.log("YES");
+  } else {
+    console.log("NO");
+  }
+}
