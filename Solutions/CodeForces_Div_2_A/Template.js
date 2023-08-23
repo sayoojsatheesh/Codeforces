@@ -26,32 +26,22 @@ function main() {
   // String //
   let temp = readline()
     .replace(/\n/g, "")
-    .split("")
+    .split(" ")
     .map((x) => parseInt(x));
   let n = temp[0];
-  let k = temp[1];
-  let all = [];
-  for (let j = 0; j < n; j++) {
-    let x = readline()
-      .replace(/\n/g, "")
-      .split("")
-      .map((x) => parseInt(x));
-    all.push(x);
-  }
-  let largest = 0;
-  let happy = 0;
-  for (let i = 0; i < n; i++) {
-    if (all[i][1] > k) {
-      happy = all[i][0] - (all[i][1] - k);
-    } else {
-      happy = all[i][0];
-    }
-    if (i == 0) {
-      largest = happy;
-    }
-    if (happy > largest) {
-      largest = happy;
-    }
-  }
-  console.log(largest);
+  let bottles = temp[1];
+  let litters = temp[2];
+  let lime = temp[3];
+  let cut = temp[4];
+  let salt = temp[5];
+  let nl = temp[6];
+  let np = temp[7];
+  let totalToats = Math.floor((bottles * litters) / nl);
+
+  let totalLimes = Math.floor(lime * cut);
+  let totalSalt = Math.floor(salt / np);
+  console.log(totalToats, totalLimes, totalSalt);
+  let min = Math.min(totalToats, totalLimes, totalSalt);
+  console.log(min / n);
 }
+
