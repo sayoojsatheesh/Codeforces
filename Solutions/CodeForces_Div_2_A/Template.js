@@ -24,48 +24,39 @@ function readline() {
 function main() {
   // Number //
   // String //
-  let n = +readline().replace(/\n/g, "");
-  let laptops = [];
-  for (let i = 0; i < n; i++) {
-    let temp = readline()
+  let temp;
+  for (let i = 0; i < 2; i++) {
+    temp = readline()
       .replace(/\n/g, "")
       .split(" ")
       .map((x) => parseInt(x));
-    laptops.push(temp);
   }
-  let print = "Poor Alex";
-  let laptopsNew = laptops.sort((a, b) => {
-    if (a[0] < b[0]) {
-      return -1;
-    }
-
-    if (a[0] > b[0]) {
-      return 1;
-    }
-
-    if (a[1] < b[1]) {
-      return -1;
-    }
-
-    if (a[1] > b[1]) {
-      return 1;
-    }
-
-    return 0;
-  });
-
-  for (let i = 0; i < n; i++) {
-    if (i !== n - 1) {
-      if (
-        laptopsNew[i] < laptopsNew[i + 1] &&
-        laptopsNew[i] > laptopsNew[i + 1]
-      ) {
-        console.log(laptopsNew[i].charAt(0), laptopsNew[i + 1].charAt(0));
-        console.log(laptopsNew[i].charAt(1), laptopsNew[i + 1].charAt(1));
-        print = "Happy Alex";
-        break;
-      }
-    }
+  let a = temp[0];
+  let b = temp[1];
+  let draw = 0;
+  let aWins;
+  let bWins;
+  if ((a - b - 1) % 2 !== 0) {
+    draw = 1;
   }
-  console.log(print);
+  let value1;
+  let value2;
+  if (a < b) {
+    value1 = a;
+    value2 = b;
+  } else {
+    value1 = b;
+    value2 = a;
+  }
+
+  let left = Math.abs(0 - value1);
+  let right = Math.abs(Math.floor((value2 - value1 - 1) / 2));
+  aWins = left + right;
+  bWins = 6 - aWins - draw;
+
+  let probability =
+    a < b
+      ? Math.floor(aWins) + " " + draw + " " + Math.floor(bWins)
+      : Math.floor(bWins) + " " + draw + " " + Math.floor(aWins);
+  console.log(probability);
 }
