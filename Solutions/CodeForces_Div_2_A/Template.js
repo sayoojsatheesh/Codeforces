@@ -24,24 +24,48 @@ function readline() {
 function main() {
   // Number //
   // String //
-  let temp = readline()
-    .replace(/\n/g, "")
-    .split(" ")
-    .map((x) => parseInt(x));
-  let n = temp[0];
-  let bottles = temp[1];
-  let litters = temp[2];
-  let lime = temp[3];
-  let cut = temp[4];
-  let salt = temp[5];
-  let nl = temp[6];
-  let np = temp[7];
-  let totalToats = Math.floor((bottles * litters) / nl);
+  let n = +readline().replace(/\n/g, "");
+  let laptops = [];
+  for (let i = 0; i < n; i++) {
+    let temp = readline()
+      .replace(/\n/g, "")
+      .split(" ")
+      .map((x) => parseInt(x));
+    laptops.push(temp);
+  }
+  let print = "Poor Alex";
+  let laptopsNew = laptops.sort((a, b) => {
+    if (a[0] < b[0]) {
+      return -1;
+    }
 
-  let totalLimes = Math.floor(lime * cut);
-  let totalSalt = Math.floor(salt / np);
-  console.log(totalToats, totalLimes, totalSalt);
-  let min = Math.min(totalToats, totalLimes, totalSalt);
-  console.log(min / n);
+    if (a[0] > b[0]) {
+      return 1;
+    }
+
+    if (a[1] < b[1]) {
+      return -1;
+    }
+
+    if (a[1] > b[1]) {
+      return 1;
+    }
+
+    return 0;
+  });
+
+  for (let i = 0; i < n; i++) {
+    if (i !== n - 1) {
+      if (
+        laptopsNew[i] < laptopsNew[i + 1] &&
+        laptopsNew[i] > laptopsNew[i + 1]
+      ) {
+        console.log(laptopsNew[i].charAt(0), laptopsNew[i + 1].charAt(0));
+        console.log(laptopsNew[i].charAt(1), laptopsNew[i + 1].charAt(1));
+        print = "Happy Alex";
+        break;
+      }
+    }
+  }
+  console.log(print);
 }
-

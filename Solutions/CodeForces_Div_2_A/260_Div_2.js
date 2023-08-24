@@ -1,23 +1,41 @@
 let n = 3;
-let print = "Poor Alex";
 let laptops = [
-  [2, 3],
-  [1, 1],
-  [3, 2],
+  [45, 45],
+  [52, 52],
+  [35, 35],
 ];
-let bestIndex;
-for (let i = 0; i < n; i++) {
-  if (i == 0) {
-    bestIndex = i;
+let print = "Poor Alex";
+let laptopsNew = laptops.sort((a, b) => {
+  if (a[0] < b[0]) {
+    return -1;
   }
-  if (i < n - 1) {
+
+  if (a[0] > b[0]) {
+    return 1;
+  }
+
+  if (a[1] < b[1]) {
+    return -1;
+  }
+
+  if (a[1] > b[1]) {
+    return 1;
+  }
+
+  return 0;
+});
+
+
+for (let i = 0; i < n; i++) {
+  if (i !== n - 1) {
     if (
-      laptops[bestIndex][0] < laptops[i+1][0] &&
-      laptops[bestIndex][1] > laptops[i+1][1]
+      laptopsNew[i] < laptopsNew[i + 1] &&
+      laptopsNew[i] > laptopsNew[i + 1]
     ) {
-        
-        bestIndex=i;
+      console.log(laptopsNew[i].charAt(0), laptopsNew[i + 1].charAt(0));
+      console.log(laptopsNew[i].charAt(1), laptopsNew[i + 1].charAt(1));
       print = "Happy Alex";
+      break;
     }
   }
 }
