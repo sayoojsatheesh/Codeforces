@@ -28,31 +28,40 @@ function main() {
     .replace(/\n/g, "")
     .split(" ")
     .map((x) => parseInt(x));
-  let set =  readline()
+  let tracks =  readline()
     .replace(/\n/g, "")
     .split(" ")
     .map((x) => parseInt(x));
-  let chestCount = 0;
-  let bicepsCount = 0;
-  let backCount = 0;
-  let flag = "chest";
-  for (let i = 0; i < n; i++) {
-    if (flag == "chest") {
-      chestCount = chestCount + set[i];
-      flag = "biceps";
-    } else if (flag == "biceps") {
-      bicepsCount = bicepsCount + set[i];
-      flag = "back";
-    } else {
-      backCount = backCount + set[i];
-      flag = "chest";
+    let leastDiffrence;
+    let leastDiffrenceIndex;
+    for (let i = 0; i < n - 2; i++) {
+      if (i == 0) {
+        leastDiffrence = tracks[i + 2] - tracks[i];
+        leastDiffrenceIndex = 1;
+        continue;
+      }
+      let tempDiffrence = tracks[i + 2] - tracks[i];
+      if (tempDiffrence < leastDiffrence) {
+        leastDiffrence = tempDiffrence;
+        leastDiffrenceIndex = i + 1;
+      }
     }
-  }
-  if (chestCount > bicepsCount && chestCount > backCount) {
-    console.log("chest");
-  } else if (bicepsCount > chestCount && bicepsCount > backCount) {
-    console.log("biceps");
-  } else {
-    console.log("back");
-  }
+    let filtredArray = tracks.filter((item, index) => {
+      if (index !== leastDiffrenceIndex) {
+        return item;
+      }
+    });
+    let maxDiffrence;
+    for (let i = 0; i < filtredArray.length; i++) {
+      if (i == 0) {
+        maxDiffrence = filtredArray[i + 1] - filtredArray[i];
+        continue;
+      }
+      let tempDiffrence = filtredArray[i + 1] - filtredArray[i];
+      if (maxDiffrence < tempDiffrence) {
+        maxDiffrence = tempDiffrence;
+      }
+    }
+    
+    console.log(maxDiffrence);
 }
