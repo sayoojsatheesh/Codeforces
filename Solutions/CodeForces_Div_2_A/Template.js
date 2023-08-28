@@ -24,44 +24,37 @@ function readline() {
 function main() {
   // Number //
   // String //
-  let n = +readline()
+  let n = readline()
     .replace(/\n/g, "")
-    .split(" ")
+    .split("")
     .map((x) => parseInt(x));
-  let tracks =  readline()
-    .replace(/\n/g, "")
-    .split(" ")
-    .map((x) => parseInt(x));
-    let leastDiffrence;
-    let leastDiffrenceIndex;
-    for (let i = 0; i < n - 2; i++) {
-      if (i == 0) {
-        leastDiffrence = tracks[i + 2] - tracks[i];
-        leastDiffrenceIndex = 1;
-        continue;
-      }
-      let tempDiffrence = tracks[i + 2] - tracks[i];
-      if (tempDiffrence < leastDiffrence) {
-        leastDiffrence = tempDiffrence;
-        leastDiffrenceIndex = i + 1;
+  let l = BigInt(n[0]);
+  let r = BigInt(n[1]);
+  let totalNumbers = r - l + 1n; // Add 1n here
+
+  for (let i = 0n; i < totalNumbers; i++) {
+    for (let j = i + 1n; j < totalNumbers; j++) {
+      for (let k = j + 1n; k < totalNumbers; k++) {
+        let a = l + i;
+        let b = l + j;
+        let c = l + k;
+        if (areCoprime(b, a) && areCoprime(c, b) && !areCoprime(c, a)) {
+          console.log(`${a.toString()} ${b.toString()} ${c.toString()}`);
+          return;
+        }
       }
     }
-    let filtredArray = tracks.filter((item, index) => {
-      if (index !== leastDiffrenceIndex) {
-        return item;
-      }
-    });
-    let maxDiffrence;
-    for (let i = 0; i < filtredArray.length; i++) {
-      if (i == 0) {
-        maxDiffrence = filtredArray[i + 1] - filtredArray[i];
-        continue;
-      }
-      let tempDiffrence = filtredArray[i + 1] - filtredArray[i];
-      if (maxDiffrence < tempDiffrence) {
-        maxDiffrence = tempDiffrence;
-      }
+  }
+
+  function gcd(a, b) {
+    if (b === 0n) {
+      return a;
+    } else {
+      return gcd(b, a % b);
     }
-    
-    console.log(maxDiffrence);
+  }
+
+  function areCoprime(a, b) {
+    return gcd(a, b) === 1n;
+  }
 }
