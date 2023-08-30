@@ -24,37 +24,63 @@ function readline() {
 function main() {
   // Number //
   // String //
-  let n = readline()
-    .replace(/\n/g, "")
-    .split("")
-    .map((x) => parseInt(x));
-  let l = BigInt(n[0]);
-  let r = BigInt(n[1]);
-  let totalNumbers = r - l + 1n; // Add 1n here
-
-  for (let i = 0n; i < totalNumbers; i++) {
-    for (let j = i + 1n; j < totalNumbers; j++) {
-      for (let k = j + 1n; k < totalNumbers; k++) {
-        let a = l + i;
-        let b = l + j;
-        let c = l + k;
-        if (areCoprime(b, a) && areCoprime(c, b) && !areCoprime(c, a)) {
-          console.log(`${a.toString()} ${b.toString()} ${c.toString()}`);
-          return;
+  let n = readline().replace(/\n/g, "");
+  let square = [];
+  for (let i = 0; i < n; i++) {
+    let x = readline()
+      .replace(/\n/g, "")
+      .split("")
+      .map((x) => parseInt(x));
+    square.push(x);
+  }
+  let countLeft = 0;
+  let countRight = n - 1;
+  let alphabetInDiagonal;
+  let diagonalChecked;
+  let lettersOnOtherSquare = square[0][1];
+  for (let i = 0; i < n; i++) {
+    diagonalChecked = "UnCheked";
+    for (let j = 0; j < n; j++) {
+      if (
+        square[i][countLeft] == square[i][countRight] &&
+        diagonalChecked == "UnCheked"
+      ) {
+        if (alphabetInDiagonal) {
+          if (
+            square[i][countLeft] !== alphabetInDiagonal ||
+            square[i][countRight] !== alphabetInDiagonal
+          ) {
+            console.log("NO");
+            return;
+          }
+        }
+        alphabetInDiagonal = square[i][countLeft];
+        diagonalChecked = "Cheked";
+      } else if (
+        diagonalChecked == "UnCheked" &&
+        square[i][countLeft] !== square[i][countRight]
+      ) {
+        diagonalChecked = "NotEqual";
+      }
+      if (j !== countLeft && j !== countRight) {
+        if (lettersOnOtherSquare) {
+          if (
+            square[i][j] == alphabetInDiagonal ||
+            square[i][j] !== lettersOnOtherSquare
+          ) {
+            console.log("NO");
+            return;
+          }
         }
       }
     }
-  }
+    countLeft++;
+    countRight--;
 
-  function gcd(a, b) {
-    if (b === 0n) {
-      return a;
-    } else {
-      return gcd(b, a % b);
+    if (diagonalChecked == "NotEqual") {
+      console.log("NO");
+      return;
     }
   }
-
-  function areCoprime(a, b) {
-    return gcd(a, b) === 1n;
-  }
+  console.log("YES");
 }
