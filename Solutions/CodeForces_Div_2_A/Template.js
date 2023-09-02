@@ -24,42 +24,52 @@ function readline() {
 function main() {
   // Number //
   // String //
-  let temp = readline()
-    .replace(/\r/g, "")
-    .split("")
-    .map((x) => parseInt(x));
-  let n = temp[0];
-  let x = temp[1];
-  let interstigMoments = [];
+  let n = +readline().replace(/\n/g, "");
+  let cordinatePoints=[]
   for (let i = 0; i < n; i++) {
-    let temp = readline()
-      .replace(/\r/g, "")
-      .split("")
-      .map((x) => parseInt(x));
-    interstigMoments.push(temp);
+    let x = readline().replace(/\r/g, "").split(" ").map((x) => parseInt(x));
+    cordinatePoints.push(x)
   }
-  let playerCurrentlyAt = 1;
   let pointer = 0;
-  let totalWatchTime = 1;
-  while (playerCurrentlyAt < interstigMoments[interstigMoments.length - 1][1]) {
-    let maxSkippable = interstigMoments[pointer][0];
-    let timeAfterSkipping = playerCurrentlyAt + x;
-    if (timeAfterSkipping <= maxSkippable) {
-      playerCurrentlyAt = playerCurrentlyAt + x;
-    } else {
-      if (pointer !== interstigMoments.length - 1) {
-        let watching = interstigMoments[pointer][1] - playerCurrentlyAt + 1;
-        totalWatchTime = totalWatchTime + watching;
-        playerCurrentlyAt = interstigMoments[pointer][1] + 1;
-      } else {
-        let watching = interstigMoments[pointer][1] - playerCurrentlyAt;
-        totalWatchTime = totalWatchTime + watching;
-        playerCurrentlyAt = interstigMoments[pointer][1];
+  let left = false;
+  let right = false;
+  let up = false;
+  let down = false;
+  let printCount = 0;
+  while (pointer < n) {
+    for (let i = 0; i < n; i++) {
+      if (pointer !== i) {
+        if (
+          cordinatePoints[pointer][0] > cordinatePoints[i][0] &&
+          cordinatePoints[pointer][1] == cordinatePoints[i][1]
+        ) {
+          right = true;
+        } else if (
+          cordinatePoints[pointer][0] < cordinatePoints[i][0] &&
+          cordinatePoints[pointer][1] == cordinatePoints[i][1]
+        ) {
+          left = true;
+        } else if (
+          cordinatePoints[pointer][0] == cordinatePoints[i][0] &&
+          cordinatePoints[pointer][1] < cordinatePoints[i][1]
+        ) {
+          down = true;
+        } else if (
+          cordinatePoints[pointer][0] == cordinatePoints[i][0] &&
+          cordinatePoints[pointer][1] > cordinatePoints[i][1]
+        ) {
+          up = true;
+        }
       }
     }
-    if (playerCurrentlyAt >= interstigMoments[pointer][1]) {
-      pointer++;
+    if (right && left && up && down) {
+      printCount++;
     }
+    pointer++;
+    left = false;
+    right = false;
+    up = false;
+    down = false;
   }
-  console.log(totalWatchTime);
+  console.log(printCount);
 }
