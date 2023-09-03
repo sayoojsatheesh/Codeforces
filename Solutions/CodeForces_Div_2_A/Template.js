@@ -28,18 +28,20 @@ function main() {
     .replace(/\r/g, "")
     .split(" ")
     .map((x) => parseInt(x));
-  let mPoints = temp[0];
-  let vPoints = temp[1];
-  let mTime = temp[2];
-  let vTime = temp[3];
-  let mTotal = Math.max(3*mPoints/10,mPoints - (mPoints / 250) * mTime);
-  let vTotal = Math.max(3*vPoints/10,vPoints - (vPoints / 250) * vTime);
-  
-  if (mTotal > vTotal) {
-    console.log("Misha");
-  } else if (vTotal > mTotal) {
-    console.log("Vasya");
-  } else {
-    console.log("Tie");
+  let n = temp[0];
+  let a = temp[1];
+  let b = temp[2];
+  let c = temp[3];
+  let max = 0;
+  for (let i = 0; i < a / 2; i++) {
+    for (let j = 0; j < b / 2; j++) {
+      for (let k = 0; k < c / 2; k++) {
+        let val = n - a * i + b * j + c * k;
+        if (val == 0) {
+          max = Math.max(max, i + j + k);
+        }
+      }
+    }
   }
+  console.log(max);
 }
