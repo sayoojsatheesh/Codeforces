@@ -24,52 +24,37 @@ function readline() {
 function main() {
   // Number //
   // String //
-  let n = +readline().replace(/\n/g, "");
-  let cordinatePoints=[]
+  let temp = readline()
+    .replace(/\r/g, "")
+    .split(" ")
+    .map((x) => parseInt(x));
+  let n = temp[0];
+  let k = temp[1];
+  let numbers = [];
   for (let i = 0; i < n; i++) {
-    let x = readline().replace(/\r/g, "").split(" ").map((x) => parseInt(x));
-    cordinatePoints.push(x)
+    let x = readline()
+      .replace(/\r/g, "")
+      .split(" ")
+      .map((x) => parseInt(x));
+    numbers.push(x);
   }
   let pointer = 0;
-  let left = false;
-  let right = false;
-  let up = false;
-  let down = false;
   let printCount = 0;
   while (pointer < n) {
-    for (let i = 0; i < n; i++) {
-      if (pointer !== i) {
-        if (
-          cordinatePoints[pointer][0] > cordinatePoints[i][0] &&
-          cordinatePoints[pointer][1] == cordinatePoints[i][1]
-        ) {
-          right = true;
-        } else if (
-          cordinatePoints[pointer][0] < cordinatePoints[i][0] &&
-          cordinatePoints[pointer][1] == cordinatePoints[i][1]
-        ) {
-          left = true;
-        } else if (
-          cordinatePoints[pointer][0] == cordinatePoints[i][0] &&
-          cordinatePoints[pointer][1] < cordinatePoints[i][1]
-        ) {
-          down = true;
-        } else if (
-          cordinatePoints[pointer][0] == cordinatePoints[i][0] &&
-          cordinatePoints[pointer][1] > cordinatePoints[i][1]
-        ) {
-          up = true;
-        }
+    let count = 0;
+    for (let i = 0; i < numbers[pointer].toString().length; i++) {
+      if (
+        numbers[pointer].toString()[i] == 4 ||
+        numbers[pointer].toString()[i] == 7
+      ) {
+        count++;
       }
     }
-    if (right && left && up && down) {
+
+    if (count <= k) {
       printCount++;
     }
     pointer++;
-    left = false;
-    right = false;
-    up = false;
-    down = false;
   }
   console.log(printCount);
 }
