@@ -29,19 +29,30 @@ function main() {
     .split(" ")
     .map((x) => parseInt(x));
   let n = temp[0];
-  let a = temp[1];
-  let b = temp[2];
-  let c = temp[3];
-  let max = 0;
-  for (let i = 0; i < a / 2; i++) {
-    for (let j = 0; j < b / 2; j++) {
-      for (let k = 0; k < c / 2; k++) {
-        let val = n - a * i + b * j + c * k;
-        if (val == 0) {
-          max = Math.max(max, i + j + k);
-        }
-      }
-    }
+  let m = temp[1];
+  let pass = readline()
+    .replace(/\r/g, "")
+    .split(" ")
+    .map((x) => parseInt(x));
+  let fail = readline()
+    .replace(/\r/g, "")
+    .split(" ")
+    .map((x) => parseInt(x));
+  let sortedPass = pass.sort(function (a, b) {
+    return a - b;
+  });
+  let highest = sortedPass[sortedPass.length - 1];
+  if (!(2 * sortedPass[0] <= highest)) {
+    console.log(-1);
+    return;
   }
-  console.log(max);
+
+  let failedSorted = fail.sort(function (a, b) {
+    return a - b;
+  });
+  if (failedSorted[0] < highest) {
+    console.log(-1);
+    return;
+  }
+  console.log(highest);
 }
