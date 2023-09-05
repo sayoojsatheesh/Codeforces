@@ -24,35 +24,15 @@ function readline() {
 function main() {
   // Number //
   // String //
-  let temp = readline()
-    .replace(/\r/g, "")
-    .split(" ")
-    .map((x) => parseInt(x));
-  let n = temp[0];
-  let m = temp[1];
-  let pass = readline()
-    .replace(/\r/g, "")
-    .split(" ")
-    .map((x) => parseInt(x));
-  let fail = readline()
-    .replace(/\r/g, "")
-    .split(" ")
-    .map((x) => parseInt(x));
-  let sortedPass = pass.sort(function (a, b) {
-    return a - b;
-  });
-  let highest = sortedPass[sortedPass.length - 1];
-  if (!(2 * sortedPass[0] <= highest)) {
-    console.log(-1);
-    return;
+  let stones = readline().replace(/\n/g, "");
+  let instructions = readline().replace(/\n/g, "");
+  let stonePointer = 0;
+  let instructionsPointer = 0;
+  while (instructionsPointer < instructions.length) {
+    if (instructions[instructionsPointer] == stones[stonePointer]) {
+      stonePointer++;
+    }
+    instructionsPointer++;
   }
-
-  let failedSorted = fail.sort(function (a, b) {
-    return a - b;
-  });
-  if (failedSorted[0] < highest) {
-    console.log(-1);
-    return;
-  }
-  console.log(highest);
+  console.log(stonePointer + 1);
 }
