@@ -25,84 +25,33 @@ function main() {
   // Number //
   // String //
   let n = +readline().replace(/\n/g, "");
-  let upper = [];
-  let lower = [];
+  let array = readline()
+    .replace(/\r/g, "")
+    .split(" ")
+    .map((x) => parseInt(x));
+  let set1 = [];
+  let set2 = [];
+  let set3 = [];
   for (let i = 0; i < n; i++) {
-    let x = readline()
-      .replace(/\r/g, "")
-      .split(" ")
-      .map((x) => parseInt(x));
-    upper.push(x[0]);
-    lower.push(x[1]);
-  }
-  let uppersum = upper.reduce(
-    (ob, item) => {
-      ob.total = ob.total + item;
-      if (item % 2 !== 0) {
-        ob.odd++;
-      }
-      return ob;
-    },
-    { total: 0, odd: 0 }
-  );
-  let lowersum = lower.reduce(
-    (ob, item) => {
-      ob.total = ob.total + item;
-      if (item % 2 !== 0) {
-        ob.odd++;
-      }
-      return ob;
-    },
-    { total: 0, odd: 0 }
-  );
-  if (lowersum.total % 2 == 0 && uppersum.total % 2 == 0) {
-    console.log(0);
-    return;
-  } else if (n == 1) {
-    console.log(-1);
-    return;
-  } else if (
-    (uppersum % 2 == 0 && lowersum % 2 !== 0) ||
-    (uppersum % 2 !== 0 && lowersum % 2 == 0)
-  ) {
-    console.log(-1);
-    return;
-  }
-  let count = 0;
-  for (let i = 0; i < n; i++) {
-    if (
-      (upper[i] % 2 == 0 && lower[i] % 2 !== 0) ||
-      (upper[i] % 2 !== 0 && lower[i] % 2 == 0)
-    ) {
-      let temp = upper[i];
-      upper[i] = lower[i];
-      lower[i] = temp;
-      count++;
-    }
-    let uppersumNew = upper.reduce(
-      (ob, item) => {
-        ob.total = ob.total + item;
-        if (item % 2 !== 0) {
-          ob.odd++;
-        }
-        return ob;
-      },
-      { total: 0, odd: 0 }
-    );
-    let lowersumNew = lower.reduce(
-      (ob, item) => {
-        ob.total = ob.total + item;
-        if (item % 2 !== 0) {
-          ob.odd++;
-        }
-        return ob;
-      },
-      { total: 0, odd: 0 }
-    );
-    if (uppersumNew.total % 2 == 0 && lowersumNew.total % 2 == 0) {
-      console.log(count);
-      return;
+    if (array[i] < 0) {
+      set1.push(array[i]);
+    } else if (array[i] == 0) {
+      set3.push(array[i]);
+    } else {
+      set2.push(array[i]);
     }
   }
-  console.log(-1)
+  if (set2.length == 0) {
+    set2.push(set1[set1.length - 1]);
+    set2.push(set1[set1.length - 2]);
+    set1.pop();
+    set1.pop();
+  }
+  if (set1.length % 2 == 0) {
+    set3.push(set1[set1.length - 1]);
+    set1.pop();
+  }
+  console.log(set1.length, ...set1);
+  console.log(set2.length, ...set2);
+  console.log(set3.length, ...set3);
 }
