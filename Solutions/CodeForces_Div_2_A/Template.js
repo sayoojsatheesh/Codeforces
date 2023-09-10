@@ -24,20 +24,16 @@ function readline() {
 function main() {
   // Number //
   // String //
-  let n = +readline().replace(/\n/g, "");
-  let count = 0;
-  let flag = true;
-  if (n.toString().includes(8)) {
-    count++;
-    n++;
-  }
-  while (flag) {
-    if (n.toString().includes(8)) {
-      if (count) flag = false;
-    } else {
-      count++;
-      n++;
-    }
-  }
-  console.log(count);
+  let n = readline()
+    .replace(/\r/g, "")
+    .split(" ")
+    .map((x) => parseInt(x));
+  let a = n[0];
+  let b = n[1];
+  let c = n[2];
+  let s1 = Math.sqrt((a * b) / c);
+  let s2 = Math.sqrt((a * c) / b);
+  let s3 = Math.sqrt((b * c) / a);
+  let sum = 4 * (s1 + s2 + s3);
+  console.log(sum);
 }
