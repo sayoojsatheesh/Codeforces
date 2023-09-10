@@ -25,33 +25,21 @@ function main() {
   // Number //
   // String //
   let n = +readline().replace(/\n/g, "");
-  let array = readline()
+  let arr = readline()
     .replace(/\r/g, "")
     .split(" ")
     .map((x) => parseInt(x));
-  let set1 = [];
-  let set2 = [];
-  let set3 = [];
-  for (let i = 0; i < n; i++) {
-    if (array[i] < 0) {
-      set1.push(array[i]);
-    } else if (array[i] == 0) {
-      set3.push(array[i]);
-    } else {
-      set2.push(array[i]);
+  while (true) {
+    arr.sort((a, b) => b - a);
+    const largest = arr[0];
+    const secondLargest = arr[1];
+
+    if (secondLargest === 0) {
+      break;
     }
+
+    arr[0] -= secondLargest;
   }
-  if (set2.length == 0) {
-    set2.push(set1[set1.length - 1]);
-    set2.push(set1[set1.length - 2]);
-    set1.pop();
-    set1.pop();
-  }
-  if (set1.length % 2 == 0) {
-    set3.push(set1[set1.length - 1]);
-    set1.pop();
-  }
-  console.log(set1.length, ...set1);
-  console.log(set2.length, ...set2);
-  console.log(set3.length, ...set3);
+  const minimalSum = arr.reduce((acc, curr) => acc + curr, 0);
+  console.log(minimalSum);
 }
