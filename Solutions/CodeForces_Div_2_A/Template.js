@@ -24,45 +24,25 @@ function readline() {
 function main() {
   // Number //
   // String //
-  let n = readline().replace(/\n/g, "");
-  let array = [];
-  for (let i = 0; i < n; i++) {
-    let temp = readline()
-      .replace(/\r/g, "")
-      .split(" ")
-      .map((x) => parseInt(x));
-    array.push(temp);
-  }
-
-  if (n == 1) {
-    console.log(array[0]);
-    return;
-  }
-  let firstItem = array[0];
-  let filtredArray = array.filter((item) => {
-    return item == firstItem;
-  });
-  if (array.length == filtredArray.length) {
-    console.log(firstItem);
-    return;
-  }
-  let count = {};
-  for (let i = 0; i < array.length; i++) {
-    count[array[i]] = count[array[i]] !== undefined ? ++count[array[i]] : 1;
-  }
-  let largest;
-  let tempKey;
-  for (let key in count) {
-    if (!largest) {
-      largest = count[key];
-      tempKey = key;
-      continue;
+  let a = +readline().replace(/\n/g, "");
+  let b = +readline().replace(/\n/g, "");
+  let c = a + b;
+  let tempA = removeZero(a.toString());
+  let tempB = removeZero(b.toString());
+  let tempC = removeZero(c.toString());
+  function removeZero(string) {
+    let str = "";
+    for (let i = 0; i < string.length; i++) {
+      if (string[i] !== "0") {
+        str = str + string[i];
+      }
     }
-
-    if (largest > count[key]) {
-      console.log(tempKey);
-    } else {
-      console.log(key);
-    }
+    return str;
+  }
+  let sumC = +tempA + +tempB;
+  if (sumC == tempC) {
+    console.log("YES");
+  } else {
+    console.log("NO");
   }
 }
