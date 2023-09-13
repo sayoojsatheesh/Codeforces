@@ -24,16 +24,39 @@ function readline() {
 function main() {
   // Number //
   // String //
-  let n = readline()
+  let temp = readline()
     .replace(/\r/g, "")
     .split(" ")
     .map((x) => parseInt(x));
-  let a = n[0];
-  let b = n[1];
-  let c = n[2];
-  let s1 = Math.sqrt((a * b) / c);
-  let s2 = Math.sqrt((a * c) / b);
-  let s3 = Math.sqrt((b * c) / a);
-  let sum = 4 * (s1 + s2 + s3);
-  console.log(sum);
+  let n = temp[0];
+  let m = temp[1];
+  let chessBoard = [];
+  for (let i = 0; i < n; i++) {
+    let temp = readline()
+      .replace(/\r/g, "")
+      .split(" ")
+      .map((x) => x.toString());
+    chessBoard.push(temp);
+  }
+  let chessMan = "B";
+  let flag = true;
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < m; j++) {
+      if (chessBoard[i][j] == ".") {
+        if (i + (j % 2) == 0) {
+          chessBoard[i][j] = "W";
+        } else {
+          chessBoard[i][j] = "B";
+        }
+      }
+    }
+  }
+  let print = "";
+  chessBoard.map((item) => {
+    for (let i = 0; i < item.length; i++) {
+      print = print + item[i] + " ";
+    }
+    print = print + "\n";
+  });
+  console.log(print);
 }
