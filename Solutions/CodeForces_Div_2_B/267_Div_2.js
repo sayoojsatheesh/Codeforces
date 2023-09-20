@@ -1,7 +1,7 @@
 let n = 7;
 let m = 3;
 let k = 1;
-let soliders = [8, 5, 111, 17];
+let soliders = [8, 17, 111, 17];
 let binnary = [];
 for (let i = 0; i <= m; i++) {
   binnary.push(soliders[i].toString(2));
