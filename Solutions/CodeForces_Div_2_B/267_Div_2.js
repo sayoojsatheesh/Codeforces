@@ -4,7 +4,7 @@ let k = 1;
 let soliders = [8, 17, 111, 17];
 let binnary = [];
 for (let i = 0; i <= m; i++) {
-  binnary.push(soliders[i].toString(2));
+  binnary.push(soliders[i]);
 }
 console.log(binnary);
 let friends = 0;
@@ -12,8 +12,9 @@ let pointer = m;
 
 for (let i = 0; i < binnary.length - 1; i++) {
   let count = 0;
-  for (let j = 0; j < binnary[i].length; j++) {
-    console.log("bt =",binnary[i] ^ binnary[pointer]);
+  for (let j = 0; j < binnary.length; j++) {
+    console.log("In")
+    console.log("bt =",binnary[j] ^ binnary[pointer]);
     if (binnary[i][j] !== binnary[pointer][j]) {
       count++;
     }
