@@ -1,40 +1,40 @@
-const readline = require('readline');
+"use strict";
+process.stdin.resume();
+process.stdin.setEncoding("utf-8");
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
-
-function countOnes(n) {
-  let count = 0;
-  while (n !== 0) {
-    n = n & (n - 1);
-    count++;
-  }
-  return count;
+function print(x) {
+  console.log(x);
 }
+let inputString = "";
+let currentLine = 0;
+
+process.stdin.on("data", (inputStdin) => {
+  inputString += inputStdin;
+});
+process.stdin.on("end", () => {
+  inputString = inputString.split("\n");
+  main();
+});
+function readline() {
+  return inputString[currentLine++];
+}
+
+// ********** Code Start **********
 
 function main() {
-  rl.question('', (input) => {
-    const [n, m, k] = input.trim().split(' ').map(Number);
-    const soldiers = [];
-
-    rl.on('line', (line) => {
-      soldiers.push(Number(line));
-    });
-
-    rl.on('close', () => {
-      let count = 0;
-      for (let i = 0; i < m; i++) {
-        const res = soldiers[i] ^ soldiers[m];
-        if (countOnes(res) <= k) {
-          count++;
-        }
-      }
-
-      console.log(count);
-    });
-  });
+  // Number //
+  // String //
+  let temp = readline()
+    .replace(/\r/g, "")
+    .split(" ")
+    .map((x) => parseInt(x));
+  let n = temp[0];
+  let m = temp[1];
+  let maxCount = n - (m - 1);
+  let maxFriends = (maxCount * maxCount - maxCount) / 2;
+  let minCount = n / m;
+  let minValue = (minCount*minCount-minCount)/2;
+  minValue = m == 1 ? maxFriends : minValue*m;
+  let print = Math.round(minValue) + " " + maxFriends;
+  console.log(print);
 }
-
-main();
