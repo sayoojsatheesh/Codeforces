@@ -23,45 +23,35 @@ function readline() {
 
 function main() {
   let n = +readline().replace(/\r/g, "");
-  let array = readline()
+  let m = +readline().replace(/\r/g, "");
+  let words = [];
+  for (let i = 0; i < m; i++) {
+    words.push(
+      readline()
+        .replace(/\r/g, "")
+        .split(" ")
+        .map((x) => x)
+    );
+  }
+  let lectures = readline()
     .replace(/\r/g, "")
     .split(" ")
-    .map((x) => parseInt(x));
-    let sortedArray = [...array].sort(function (a, b) {
-      return a - b;
-    });
-    if (JSON.stringify(sortedArray) === JSON.stringify(array)) {
-      console.log("yes");
-      console.log("1 1");
-      return;
-    }
-    
-    let start;
-    let end;
-    for (let i = 0; i < array.length; i++) {
-      if (sortedArray[i] !== array[i]) {
-        start = i;
-        break;
+    .map((x) => x);
+  let output = "";
+
+  for (let i = 0; i < lectures.length; i++) {
+    for (let j = 0; j < words.length; j++) {
+      if (lectures[i] == words[j][0]) {
+        if (words[j][0].length < words[j][1].length) {
+          output = output + " " + words[j][0];
+          break;
+        } else {
+          output = output + " " + words[j][1];
+          break;
+        }
       }
     }
-    
-    for (let i = array.length - 1; i >= 0; i--) {
-      if (sortedArray[i] !== array[i]) {
-        end = i;
-        break;
-      }
-    }
-    let endValue = end;
-    for (let j = start; j <= end; j++) {
-      let temp = array[j];
-      array[j] = array[end];
-      array[end] = temp;
-      end--;
-    }
-    if (JSON.stringify(sortedArray) === JSON.stringify(array)) {
-      console.log("yes");
-      console.log(`${start} ${endValue}`);
-    } else {
-      console.log("no");
-    }
+  }
+
+  console.log(output);
 }
