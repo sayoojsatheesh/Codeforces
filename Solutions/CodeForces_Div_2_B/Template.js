@@ -23,35 +23,30 @@ function readline() {
 
 function main() {
   let n = +readline().replace(/\r/g, "");
-  let m = +readline().replace(/\r/g, "");
-  let words = [];
-  for (let i = 0; i < m; i++) {
-    words.push(
-      readline()
-        .replace(/\r/g, "")
-        .split(" ")
-        .map((x) => x)
-    );
-  }
-  let lectures = readline()
+  let numbers = readline()
     .replace(/\r/g, "")
     .split(" ")
-    .map((x) => x);
-  let output = "";
+    .map((x) => parseInt(x));
 
-  for (let i = 0; i < lectures.length; i++) {
-    for (let j = 0; j < words.length; j++) {
-      if (lectures[i] == words[j][0]) {
-        if (words[j][0].length < words[j][1].length) {
-          output = output + " " + words[j][0];
-          break;
-        } else {
-          output = output + " " + words[j][1];
-          break;
-        }
+  let i = 0;
+  while (i < n) {
+    let count = 0;
+    for (let j = 1; j <= Math.ceil(numbers[i] / 2); j++) {
+      if (numbers[i] % j == 0) {
+        count++;
+      }
+      console.log(count)
+      if (count > 3) {
+        console.log("in")
+        break;
       }
     }
+    count++;
+    if (count == 3) {
+      console.log("YES");
+    } else {
+      console.log("NO");
+    }
+    i++;
   }
-
-  console.log(output);
 }
