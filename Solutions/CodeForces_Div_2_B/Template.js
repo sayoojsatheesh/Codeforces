@@ -22,31 +22,32 @@ function readline() {
 // ********** Code Start **********
 
 function main() {
-  let n = +readline().replace(/\r/g, "");
-  let numbers = readline()
-    .replace(/\r/g, "")
-    .split(" ")
-    .map((x) => parseInt(x));
-
-  let i = 0;
-  while (i < n) {
-    let count = 0;
-    for (let j = 1; j <= Math.ceil(numbers[i] / 2); j++) {
-      if (numbers[i] % j == 0) {
-        count++;
-      }
-      console.log(count)
-      if (count > 3) {
-        console.log("in")
-        break;
+  let amount = readline().replace(/\r/g, "").split(" ");
+  let amountChanged = [...amount];
+  let largest;
+  let pointer = 0;
+  let lastDigit = amount[amount.length - 1];
+  while (pointer < amount.length - 1) {
+    if (amount[pointer] % 2 == 0) {
+      if (!largest) {
+        let temp = amountChanged[pointer];
+        amountChanged[pointer] = lastDigit;
+        amountChanged[amount.length - 1] = temp;
+        largest = amountChanged.join("");
+      } else {
+        let tempAmount = [...amount];
+        let temp = tempAmount[pointer];
+        tempAmount[pointer] = lastDigit;
+        tempAmount[tempAmount.length - 1] = temp;
+        if (largest < tempAmount.join("")) {
+          largest = tempAmount.join("");
+          if (temp == 0) {
+            break;
+          }
+        }
       }
     }
-    count++;
-    if (count == 3) {
-      console.log("YES");
-    } else {
-      console.log("NO");
-    }
-    i++;
+    pointer++;
   }
+  console.log(largest ? largest : -1);
 }

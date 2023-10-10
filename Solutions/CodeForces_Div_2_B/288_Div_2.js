@@ -1,4 +1,4 @@
-let amount = "444443".split("");
+let amount = "3852466278439783621701".split("");
 let amountChanged = [...amount];
 let largest;
 let pointer = 0;
@@ -15,14 +15,9 @@ while (pointer < amount.length - 1) {
       let temp = tempAmount[pointer];
       tempAmount[pointer] = lastDigit;
       tempAmount[tempAmount.length - 1] = temp;
-      console.log(tempAmount.join(""));
       if (largest < tempAmount.join("")) {
-        let temp = amount[pointer];
-        console.log("temp",temp)
-        amount[pointer] = lastDigit;
-        amount[amount.length - 1] = temp;
-        largest = amount.join("");
-        console.log("inl");
+        largest = tempAmount.join("");
+        
       }
     }
   }
