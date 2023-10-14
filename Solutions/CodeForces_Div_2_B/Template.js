@@ -22,32 +22,38 @@ function readline() {
 // ********** Code Start **********
 
 function main() {
-  let amount = readline().replace(/\r/g, "").split(" ");
-  let amountChanged = [...amount];
+  let stringArray = readline()
+    .replace(/\r/g, "")
+    .split(" ")
+    .map((x) => x);
+  let k = +readline().replace(/\r/g, "");
+  const numberArray = readline()
+    .replace(/\r/g, "")
+    .split(" ")
+    .map((x) => parseInt(x));
+  console.log(stringArray, k, numberArray);
   let largest;
-  let pointer = 0;
-  let lastDigit = amount[amount.length - 1];
-  while (pointer < amount.length - 1) {
-    if (amount[pointer] % 2 == 0) {
-      if (!largest) {
-        let temp = amountChanged[pointer];
-        amountChanged[pointer] = lastDigit;
-        amountChanged[amount.length - 1] = temp;
-        largest = amountChanged.join("");
-      } else {
-        let tempAmount = [...amount];
-        let temp = tempAmount[pointer];
-        tempAmount[pointer] = lastDigit;
-        tempAmount[tempAmount.length - 1] = temp;
-        if (largest < tempAmount.join("")) {
-          largest = tempAmount.join("");
-          if (temp == 0) {
-            break;
-          }
-        }
-      }
+  let indexValue;
+  numberArray.map((item, index) => {
+    if (index == 0) {
+      largest = item;
+      indexValue = index;
     }
-    pointer++;
+    if (item > largest) {
+      largest = item;
+      indexValue = index;
+    }
+  });
+  let total = 0;
+  for (let i = 0; i < stringArray.length; i++) {
+    const character = stringArray[i]; // Change this to the character you want to find the ASCII value of
+    const asciiValue = numberArray[character.charCodeAt(0) - 97];
+    total = total + (i + 1) * asciiValue;
   }
-  console.log(largest ? largest : -1);
+  let starting = stringArray.length + 1;
+  while (starting <= k + stringArray.length) {
+    total = total + starting * largest;
+    starting++;
+  }
+  console.log(total);
 }
