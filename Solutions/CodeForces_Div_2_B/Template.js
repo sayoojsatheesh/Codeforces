@@ -26,34 +26,29 @@ function main() {
     .replace(/\r/g, "")
     .split(" ")
     .map((x) => x);
-  let k = +readline().replace(/\r/g, "");
-  const numberArray = readline()
-    .replace(/\r/g, "")
-    .split(" ")
-    .map((x) => parseInt(x));
-  console.log(stringArray, k, numberArray);
-  let largest;
-  let indexValue;
-  numberArray.map((item, index) => {
-    if (index == 0) {
-      largest = item;
-      indexValue = index;
-    }
-    if (item > largest) {
-      largest = item;
-      indexValue = index;
-    }
+  let numberArray = [...stringArray];
+  let copy = [...stringArray];
+  let sortedArray = numberArray.sort(function (a, b) {
+    return a - b;
   });
-  let total = 0;
-  for (let i = 0; i < stringArray.length; i++) {
-    const character = stringArray[i]; // Change this to the character you want to find the ASCII value of
-    const asciiValue = numberArray[character.charCodeAt(0) - 97];
-    total = total + (i + 1) * asciiValue;
+  let pointer = numberArray.length - 1;
+  let count = 0;
+  while (pointer >= 0) {
+    if (copy[0] >= copy[numberArray.length - 1]) {
+      console.log(-1);
+      return;
+    }
+    console.log(copy, numberArray[numberArray.length - 1]);
+    copy.unshift(copy[numberArray.length - 1]);
+    console.log("copy =", copy);
+    copy.pop();
+    console.log(copy);
+    pointer--;
+    count++;
+    if (JSON.stringify(sortedArray) === JSON.stringify(copy)) {
+      console.log(count);
+      return;
+    }
   }
-  let starting = stringArray.length + 1;
-  while (starting <= k + stringArray.length) {
-    total = total + starting * largest;
-    starting++;
-  }
-  console.log(total);
+  console.log(-1);
 }
