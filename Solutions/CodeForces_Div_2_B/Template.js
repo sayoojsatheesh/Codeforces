@@ -22,33 +22,24 @@ function readline() {
 // ********** Code Start **********
 
 function main() {
-  let stringArray = readline()
-    .replace(/\r/g, "")
-    .split(" ")
-    .map((x) => x);
-  let numberArray = [...stringArray];
-  let copy = [...stringArray];
-  let sortedArray = numberArray.sort(function (a, b) {
-    return a - b;
-  });
-  let pointer = numberArray.length - 1;
-  let count = 0;
-  while (pointer >= 0) {
-    if (copy[0] >= copy[numberArray.length - 1]) {
-      console.log(-1);
-      return;
-    }
-    console.log(copy, numberArray[numberArray.length - 1]);
-    copy.unshift(copy[numberArray.length - 1]);
-    console.log("copy =", copy);
-    copy.pop();
-    console.log(copy);
-    pointer--;
-    count++;
-    if (JSON.stringify(sortedArray) === JSON.stringify(copy)) {
-      console.log(count);
-      return;
-    }
+  let n = parseInt(readline());
+  let trees = [];
+  for (let i = 0; i < n; i++) {
+    trees.push(parseInt(readline()))
   }
-  console.log(-1);
+  let time = 0;
+  let treesPointer = 0;
+  time = time + trees[treesPointer] + 1;
+  while (treesPointer < n - 1) {
+    if (trees[treesPointer + 1] > trees[treesPointer]) {
+      let climpTime = trees[treesPointer + 1] - trees[treesPointer];
+      time = time + climpTime + 2; // 2 because 1 for jump and 1 for eat //
+    } else {
+      let climpDown = trees[treesPointer];
+      let climpUp = trees[treesPointer + 1];
+      time = time + climpDown + climpUp + 1;
+    }
+    treesPointer++;
+  }
+  console.log(time);
 }
