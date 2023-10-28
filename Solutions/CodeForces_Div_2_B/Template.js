@@ -22,24 +22,32 @@ function readline() {
 // ********** Code Start **********
 
 function main() {
-  let n = parseInt(readline());
-  let trees = [];
-  for (let i = 0; i < n; i++) {
-    trees.push(parseInt(readline()))
+  let n1 = readline()
+    .replace(/\r/g, "")
+    .split(" ")
+    .map((x) => parseInt(x));
+  let n2 = readline()
+    .replace(/\r/g, "")
+    .split(" ")
+    .map((x) => parseInt(x));
+  let n3 = readline()
+    .replace(/\r/g, "")
+    .split(" ")
+    .map((x) => parseInt(x));
+  let magicSquare = [n1, n2, n3];
+  if (magicSquare[0][1] == magicSquare[0][2]) {
+    magicSquare[0][0] = magicSquare[0][1];
+    magicSquare[1][1] = magicSquare[0][1];
+    magicSquare[2][2] = magicSquare[0][1];
+  } else {
+    let y = (magicSquare[0][2] + magicSquare[2][0]) / 2;
+    magicSquare[1][1] = y;
+    let magicNumber = magicSquare[1][0] + magicSquare[1][1] + magicSquare[1][2];
+    magicSquare[0][0] = magicNumber - (magicSquare[0][1] + magicSquare[0][2]);
+    magicSquare[2][2] = magicNumber - (magicSquare[2][1] + magicSquare[2][0]);
   }
-  let time = 0;
-  let treesPointer = 0;
-  time = time + trees[treesPointer] + 1;
-  while (treesPointer < n - 1) {
-    if (trees[treesPointer + 1] > trees[treesPointer]) {
-      let climpTime = trees[treesPointer + 1] - trees[treesPointer];
-      time = time + climpTime + 2; // 2 because 1 for jump and 1 for eat //
-    } else {
-      let climpDown = trees[treesPointer];
-      let climpUp = trees[treesPointer + 1];
-      time = time + climpDown + climpUp + 1;
-    }
-    treesPointer++;
-  }
-  console.log(time);
+
+  magicSquare.map((item) => {
+    console.log(`${item[0]} ${item[1]} ${item[2]}`);
+  });
 }
