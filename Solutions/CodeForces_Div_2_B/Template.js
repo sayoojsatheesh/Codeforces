@@ -22,32 +22,32 @@ function readline() {
 // ********** Code Start **********
 
 function main() {
-  let n1 = readline()
-    .replace(/\r/g, "")
-    .split(" ")
-    .map((x) => parseInt(x));
-  let n2 = readline()
-    .replace(/\r/g, "")
-    .split(" ")
-    .map((x) => parseInt(x));
-  let n3 = readline()
-    .replace(/\r/g, "")
-    .split(" ")
-    .map((x) => parseInt(x));
-  let magicSquare = [n1, n2, n3];
-  if (magicSquare[0][1] == magicSquare[0][2]) {
-    magicSquare[0][0] = magicSquare[0][1];
-    magicSquare[1][1] = magicSquare[0][1];
-    magicSquare[2][2] = magicSquare[0][1];
-  } else {
-    let y = (magicSquare[0][2] + magicSquare[2][0]) / 2;
-    magicSquare[1][1] = y;
-    let magicNumber = magicSquare[1][0] + magicSquare[1][1] + magicSquare[1][2];
-    magicSquare[0][0] = magicNumber - (magicSquare[0][1] + magicSquare[0][2]);
-    magicSquare[2][2] = magicNumber - (magicSquare[2][1] + magicSquare[2][0]);
+  let n = readline().replace(/\r/g, "");
+  let teams = [];
+  for (let i = 0; i < n; i++) {
+    let temp = readline()
+      .replace(/\r/g, "")
+      .split(" ")
+      .map((x) => parseInt(x));
+    teams.push(temp);
+  }
+  let pointer = 0;
+  while (pointer < n) {
+    let home = n - 1;
+    let away = 0;
+    for (let i = 0; i < n; i++) {
+      if (pointer == i) {
+        continue;
+      } else {
+        if (teams[pointer][1] == teams[i][0]) {
+          home++;
+        } else {
+          away++;
+        }
+      }
+    }
+    console.log(`${home} ${away}`)
+    pointer++;
   }
 
-  magicSquare.map((item) => {
-    console.log(`${item[0]} ${item[1]} ${item[2]}`);
-  });
 }
