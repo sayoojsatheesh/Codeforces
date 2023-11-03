@@ -26,24 +26,41 @@ function main() {
     .replace(/\r/g, "")
     .split(" ")
     .map((x) => parseInt(x));
-  let n = temp[0];
-  let dCount = temp[1];
-  let dirty = readline()
-    .replace(/\r/g, "")
-    .split(" ")
-    .map((x) => parseInt(x));
-
-  let sorted = dirty.sort();
-  for (let i = 0; i < n; i++) {
-    if (sorted[i] + 1 == sorted[i + 1] && sorted[i] + 2 == sorted[i + 2]) {
-      console.log("NO");
-      return;
+  let pCount = temp[0];
+  let qCount = temp[1];
+  let l = temp[2];
+  let r = temp[3];
+  let p = [];
+  let q = [];
+  for (let i = 0; i < pCount; i++) {
+    let temp = readline()
+      .replace(/\r/g, "")
+      .split(" ")
+      .map((x) => parseInt(x));
+    p.push(temp);
+  }
+  for (let j = 0; j < qCount; j++) {
+    let temp = readline()
+      .replace(/\r/g, "")
+      .split(" ")
+      .map((x) => parseInt(x));
+    q.push(temp);
+  }
+  let count = 0;
+  while (l <= r) {
+    let flag = false;
+    for (let j = 0; j < qCount; j++) {
+      for (let i = 0; i < pCount; i++) {
+        if (p[i][0] <= q[j][0] + l || p[i][1] >= q[j][1] + l) {
+          flag = true;
+          break;
+        }
+      }
     }
+    if (flag) {
+      count++;
+    }
+    l++;
   }
-  let lastOrFirst = sorted[0] == 1 || sorted[dCount - 1] == n;
-  if (lastOrFirst) {
-    console.log("NO");
-    return;
-  }
-  console.log("YES");
+  console.log(count);
 }
