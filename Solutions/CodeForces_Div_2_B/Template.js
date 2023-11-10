@@ -27,44 +27,27 @@ function main() {
     .replace(/\r/g, "")
     .split(" ")
     .map((x) => parseInt(x));
-  let all = array.every((item) => {
-    return item == array[0];
-  });
-  if (all) {
-    if (array[0] == 0) {
-      console.log(n);
-      return;
+    let total = 0;
+    let circles = array.sort(function (a, b) {
+      return b - a;
+    });
+    let last;
+    if (n % 2 !== 0) {
+      last = circles.pop();
+      total=total+Math.PI*last
+      n = n - 1;
     }
+    
     if (n == 1) {
-      console.log(1);
-      return;
-    }
-    console.log(2);
-    return;
-  }
-  let startPosition = 0;
-  let maxLength;
-  while (startPosition <= n - 2) {
-    let tempArray = [];
-    for (let i = startPosition; i <= n - 2; i++) {
-      if (array[i] + array[i + 1] == array[i + 2]) {
-        tempArray.push(array[i]);
-      } else {
-        break;
-      }
-    }
-    if (!maxLength) {
-      maxLength = tempArray.length + 2;
+      console.log(3.14 * 1);
     } else {
-      if (tempArray.length + 2 > maxLength) {
-        maxLength = tempArray.length + 2;
+      for (let i = 0; i < n; i += 2) {
+        total =
+          total +
+          3.14159265358979323846 *
+            (circles[i] * circles[i] - circles[i + 1] * circles[i + 1]);
       }
     }
-    startPosition++;
-  }
-  if (n == 1) {
-    console.log(1);
-    return;
-  }
-  console.log(maxLength);
+    
+    console.log(total);
 }
