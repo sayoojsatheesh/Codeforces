@@ -22,32 +22,22 @@ function readline() {
 // ********** Code Start **********
 
 function main() {
-  let n = readline().replace(/\r/g, "");
+  let n = +readline().replace(/\r/g, "");
+  let m = +readline().replace(/\r/g, "");
   let array = readline()
-    .replace(/\r/g, "")
-    .split(" ")
-    .map((x) => parseInt(x));
-    let total = 0;
-    let circles = array.sort(function (a, b) {
-      return b - a;
-    });
-    let last;
-    if (n % 2 !== 0) {
-      last = circles.pop();
-      total=total+Math.PI*last
-      n = n - 1;
-    }
-    
-    if (n == 1) {
-      console.log(3.14 * 1);
+  .replace(/\r/g, "")
+  .split(" ")
+  .map((x) => parseInt(x));
+  let tvs = array.sort(function (a, b) {
+    return a - b;
+  });
+  let filterd = tvs.filter((item) => item < 0);
+  let total = filterd.reduce((total, item, index) => {
+    if (index < m - 1) {
+      return (total = total + item);
     } else {
-      for (let i = 0; i < n; i += 2) {
-        total =
-          total +
-          3.14159265358979323846 *
-            (circles[i] * circles[i] - circles[i + 1] * circles[i + 1]);
-      }
+      return;
     }
-    
-    console.log(total);
+  }, 0);
+  console.log(Math.abs(total));
 }
