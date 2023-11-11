@@ -22,22 +22,29 @@ function readline() {
 // ********** Code Start **********
 
 function main() {
-  let n = +readline().replace(/\r/g, "");
-  let m = +readline().replace(/\r/g, "");
-  let array = readline()
-  .replace(/\r/g, "")
-  .split(" ")
-  .map((x) => parseInt(x));
-  let tvs = array.sort(function (a, b) {
-    return a - b;
-  });
-  let filterd = tvs.filter((item) => item < 0);
-  let total = filterd.reduce((total, item, index) => {
-    if (index < m - 1) {
-      return (total = total + item);
-    } else {
-      return;
+  let temp = readline()
+    .replace(/\r/g, "")
+    .split(" ")
+    .map((x) => parseInt(x));
+  let n = temp[0];
+  let m = temp[1];
+  let not = [];
+  for (let i = 0; i < m; i++) {
+    let temp = readline()
+      .replace(/\r/g, "")
+      .split(" ")
+      .map((x) => parseInt(x));
+    not.push(temp);
+  }
+  let unqiue;
+  for (let i = 1; i <= n; i++) {
+    let find = not.find((item) => item === i);
+    if (!find) {
+      unqiue = i;
+      break;
     }
-  }, 0);
-  console.log(Math.abs(total));
+  }
+  for (let j = 1; j <= n; j++) {
+    if (j !== unqiue) console.log(`${j} ${unqiue}`);
+  }
 }
