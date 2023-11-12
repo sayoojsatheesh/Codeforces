@@ -26,25 +26,71 @@ function main() {
     .replace(/\r/g, "")
     .split(" ")
     .map((x) => parseInt(x));
-  let n = temp[0];
-  let m = temp[1];
-  let not = [];
-  for (let i = 0; i < m; i++) {
+  let row = temp[0];
+  let col = temp[1];
+  let grid = [];
+  for (let i = 0; i < row; i++) {
     let temp = readline()
       .replace(/\r/g, "")
       .split(" ")
-      .map((x) => parseInt(x));
-    not.push(temp);
+      .map((x) => x);
+      grid.push(temp)
   }
-  let unqiue;
-  for (let i = 1; i <= n; i++) {
-    let find = not.find((item) => item === i);
-    if (!find) {
-      unqiue = i;
-      break;
+  let eatenCount = 0;
+
+  for (let i = 0; i < row; i++) {
+    // console.log(i,grid)
+    for (let j = 0; j < col; j++) {
+      if (grid[i][j] === "W") {
+        let flag = false;
+        if ((i !== 0) & !flag) {
+          flag = lookUp(i, j);
+        }
+        if ((i !== row - 1) & !flag) {
+          flag = lookDown(i, j);
+        }
+        if ((j !== 0) & !flag) {
+          flag = lookLeft(i, j);
+        }
+
+        if ((j !== col - 1) & !flag) {
+          flag = lookRight(i, j);
+        }
+      }
     }
   }
-  for (let j = 1; j <= n; j++) {
-    if (j !== unqiue) console.log(`${j} ${unqiue}`);
+
+  function lookUp(row, col) {
+    if (grid[row - 1][col] === "P") {
+      eatenCount++;
+      grid[row - 1][col] = ".";
+      return true;
+    }
   }
+
+  function lookDown(row, col) {
+    if (grid[row + 1][col] === "P") {
+      eatenCount++;
+      grid[row + 1][col] = ".";
+      return true;
+    }
+  }
+
+  function lookLeft(row, col) {
+    if (grid[row][col - 1] === "P") {
+      eatenCount++;
+      grid[row][col - 1] = ".";
+      return true;
+    }
+  }
+
+  function lookRight(row, col) {
+    if (grid[row][col + 1] === "P") {
+      eatenCount++;
+      grid[row][col + 1] = ".";
+      return true;
+    }
+  }
+
+  console.log(eatenCount);
 }
