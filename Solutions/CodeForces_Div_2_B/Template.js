@@ -26,71 +26,61 @@ function main() {
     .replace(/\r/g, "")
     .split(" ")
     .map((x) => parseInt(x));
-  let row = temp[0];
-  let col = temp[1];
-  let grid = [];
-  for (let i = 0; i < row; i++) {
+  let days = temp[0];
+  let sumTime = temp[1];
+  let sc = [];
+  for (let i = 0; i < days; i++) {
     let temp = readline()
       .replace(/\r/g, "")
       .split(" ")
-      .map((x) => x);
-      grid.push(temp)
+      .map((x) => parseInt(x));
+    sc.push(temp);
   }
-  let eatenCount = 0;
+  if (days == 1) {
+    if (sc[0][0] <= sumTime && sumTime <= sc[0][1]) {
+      console.log("YES");
+      console.log(sumTime);
+      return;
+    } else {
+      console.log("NO");
+      return;
+    }
+  }
+  let total = 0;
 
-  for (let i = 0; i < row; i++) {
-    // console.log(i,grid)
-    for (let j = 0; j < col; j++) {
-      if (grid[i][j] === "W") {
-        let flag = false;
-        if ((i !== 0) & !flag) {
-          flag = lookUp(i, j);
-        }
-        if ((i !== row - 1) & !flag) {
-          flag = lookDown(i, j);
-        }
-        if ((j !== 0) & !flag) {
-          flag = lookLeft(i, j);
-        }
+  for (let i = 0; i < days; i++) {
+    total = total + sc[i][1];
+  }
+  let reminder = total -sumTime;
 
-        if ((j !== col - 1) & !flag) {
-          flag = lookRight(i, j);
-        }
+
+  if (reminder < 0) {
+    console.log("NO");
+  } else if (reminder == 0) {
+    console.log("YES");
+    for (let i = 0; i < days; i++) {
+      console.log(sc[i][1]);
+    }
+  } else {
+    for (let i = 0; i < days; i++) {
+      let tempValue = sc[i][1] - reminder;
+      if (sc[i][0] <= tempValue) {
+        sc[i][1] = tempValue;
+        reminder=0;
+        break;
+      } else {
+        let temp = sc[i][1] - sc[i][0];
+        sc[i][1] = sc[i][0];
+        reminder = reminder - temp;
       }
     }
-  }
-
-  function lookUp(row, col) {
-    if (grid[row - 1][col] === "P") {
-      eatenCount++;
-      grid[row - 1][col] = ".";
-      return true;
+    if(reminder !==0){
+        console.log("NO");
+        return;
+    }
+    console.log("YES");
+    for (let i = 0; i < days; i++) {
+      console.log(sc[i][1]);
     }
   }
-
-  function lookDown(row, col) {
-    if (grid[row + 1][col] === "P") {
-      eatenCount++;
-      grid[row + 1][col] = ".";
-      return true;
-    }
-  }
-
-  function lookLeft(row, col) {
-    if (grid[row][col - 1] === "P") {
-      eatenCount++;
-      grid[row][col - 1] = ".";
-      return true;
-    }
-  }
-
-  function lookRight(row, col) {
-    if (grid[row][col + 1] === "P") {
-      eatenCount++;
-      grid[row][col + 1] = ".";
-      return true;
-    }
-  }
-
-  console.log(eatenCount);
 }
