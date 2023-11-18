@@ -22,44 +22,48 @@ function readline() {
 // ********** Code Start **********
 
 function main() {
-  let string = readline().replace(/\r/g, "");
-  let totalPoints = 0;
-  let deepCopy = cards.map((arr) => arr);
-  let higestChance = sortByChance(deepCopy);
-  console.log("higestChance =", higestChance);
-  let counter = 1;
-  let chancePointer = 0;
-  while (counter > 0) {
-    counter--;
-    if (higestChance[chancePointer][1] == 0) {
-      let tempHigestPoints = 0;
-      for (let i = 1; i < higestChance.length; i++) {
-        if (higestChance[tempHigestPoints][0] < higestChance[i][0]) {
-          tempHigestPoints = i;
-        }
-      }
-      totalPoints = totalPoints + higestChance[tempHigestPoints][0];
-      higestChance[tempHigestPoints][0] = 0;
-      higestChance[tempHigestPoints][0] = 0;
+  let sequnceCount = +readline().replace(/\r/g, "");
+  let sequnce = readline()
+    .replace(/\r/g, "")
+    .split(" ")
+    .map((x) => parseInt(x));
+
+  let records = {};
+  if (sequnceCount == 1) {
+    console.log(1);
+    console.log(`${sequnce[0]} 0`);
+    return;
+  }
+  for (let i = 0; i < sequnceCount; i++) {
+    if (!records[sequnce[i]]) {
+      records[sequnce[i]] = { currentIndex: i + 1 };
+      records[sequnce[i]].show = true;
     } else {
-      counter = counter + higestChance[chancePointer][1];
-      totalPoints = totalPoints + higestChance[chancePointer][0];
-      higestChance[chancePointer][0] = 0;
-      higestChance[chancePointer][1] = 0;
-    }
-    chancePointer++;
-  }
-  console.log(totalPoints);
-  function sortByChance(arr) {
-    for (let i = 0; i < arr.length - 1; i++) {
-      for (let j = 0; j < arr.length - 1 - i; j++) {
-        if (arr[j][1] < arr[j + 1][1]) {
-          let temp = arr[j];
-          arr[j] = arr[j + 1];
-          arr[j + 1] = temp;
+      if (!records[sequnce[i]].lastIndex) {
+        records[sequnce[i]].lastIndex =
+          i + 1 - records[sequnce[i]].currentIndex;
+        records[sequnce[i]].currentIndex = i + 1;
+      } else {
+        let tempDiffrence = i + 1 - records[sequnce[i]].currentIndex;
+        if (records[sequnce[i]].lastIndex !== tempDiffrence) {
+          records[sequnce[i]].show = false;
+        } else {
+          records[sequnce[i]].currentIndex = i + 1;
         }
       }
     }
-    return arr;
   }
+  let totatItems = 0;
+  let printString = ``;
+  for (let key in records) {
+    if (records[key].show) {
+      totatItems++;
+      printString =
+        printString +
+        `${key} ${records[key].lastIndex ? records[key].lastIndex : 0}` +
+        "\n";
+    }
+  }
+  console.log(totatItems);
+  console.log(printString);
 }
