@@ -22,48 +22,40 @@ function readline() {
 // ********** Code Start **********
 
 function main() {
-  let sequnceCount = +readline().replace(/\r/g, "");
-  let sequnce = readline()
-    .replace(/\r/g, "")
-    .split(" ")
-    .map((x) => parseInt(x));
-
-  let records = {};
-  if (sequnceCount == 1) {
-    console.log(1);
-    console.log(`${sequnce[0]} 0`);
-    return;
+  let n = +readline().replace(/\r/g, "");
+  let flag = true;
+  let order = [];
+  let temp = n;
+  let count = 0;
+  while (flag) {
+    if (temp % 2 == 0) {
+      order.push(temp / 2);
+      temp = temp / 2;
+    } else if (temp !== 1) {
+      let all = allDivisors(temp);
+      order = [...all, ...order];
+      flag = false;
+    }
+    if (temp == 1) {
+      break;
+    }
   }
-  for (let i = 0; i < sequnceCount; i++) {
-    if (!records[sequnce[i]]) {
-      records[sequnce[i]] = { currentIndex: i + 1 };
-      records[sequnce[i]].show = true;
-    } else {
-      if (!records[sequnce[i]].lastIndex) {
-        records[sequnce[i]].lastIndex =
-          i + 1 - records[sequnce[i]].currentIndex;
-        records[sequnce[i]].currentIndex = i + 1;
-      } else {
-        let tempDiffrence = i + 1 - records[sequnce[i]].currentIndex;
-        if (records[sequnce[i]].lastIndex !== tempDiffrence) {
-          records[sequnce[i]].show = false;
-        } else {
-          records[sequnce[i]].currentIndex = i + 1;
-        }
+  order = order.sort((a, b) => {
+    return b - a;
+  });
+  console.log(`${n} ${[...order].join(" ")}`);
+
+  function allDivisors(number) {
+    let temp = [1];
+    let tempNumber = number;
+    let tempSatrt = number - 1;
+    for (let i = tempSatrt; i > 1; i--) {
+      if (tempNumber % i == 0) {
+        temp.push(i);
+        tempNumber = temp[temp.length - 1];
+        tempSatrt = temp[temp.length - 1] - 1;
       }
     }
+    return temp;
   }
-  let totatItems = 0;
-  let printString = ``;
-  for (let key in records) {
-    if (records[key].show) {
-      totatItems++;
-      printString =
-        printString +
-        `${key} ${records[key].lastIndex ? records[key].lastIndex : 0}` +
-        "\n";
-    }
-  }
-  console.log(totatItems);
-  console.log(printString);
 }
