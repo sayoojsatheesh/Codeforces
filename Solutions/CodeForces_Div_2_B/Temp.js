@@ -1,4 +1,14 @@
-let a=[1,2,3];
-let b=[...a];
-b.push(5);
-console.log(a,b)
+let fs = "";
+let f = 0;
+let s = 1;
+let print = "";
+let i = 1;
+let t = parseInt(s) + parseInt(f);
+console.log(f,s)
+while (t <= 10) {
+  console.log(`${t}`);
+  f = s;
+  s = t;
+  t = parseInt(s) + parseInt(f);
+  i++;
+}
