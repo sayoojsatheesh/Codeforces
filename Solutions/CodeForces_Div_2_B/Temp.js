@@ -1,14 +1,9 @@
-let fs = "";
-let f = 0;
-let s = 1;
-let print = "";
-let i = 1;
-let t = parseInt(s) + parseInt(f);
-console.log(f,s)
-while (t <= 10) {
-  console.log(`${t}`);
-  f = s;
-  s = t;
-  t = parseInt(s) + parseInt(f);
-  i++;
-}
+let newMap=new Map();
+let key={name:"sayooj"}
+newMap.set(key,[1,2,69])
+newMap.set("age",25)
+let vale=newMap.get(key);
+newMap.forEach((value,item)=>{
+  console.log(value,item)
+})
+

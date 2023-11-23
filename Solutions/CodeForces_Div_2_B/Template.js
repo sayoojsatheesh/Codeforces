@@ -22,34 +22,51 @@ function readline() {
 // ********** Code Start **********
 
 function main() {
-  let temp1 = readline().replace(/\r/g, "");
-  let temp2 = readline().replace(/\r/g, "");
-  let string1 = temp1.split("").sort();
-  let string2 = temp2.split("");
-  let pointer = 0;
-  let areaCount = 0;
-  while (pointer < string1.length) {
-    if (string1[pointer] == string1[pointer + 1]) {
-      let index = string2.findIndex((item) => item == string1[pointer]);
-      areaCount++;
-      string2[index] = 1;
-    } else {
-      let flag = false;
-      for (let i = 0; i < string2.length; i++) {
-        if (string1[pointer] == string2[i]) {
-          if (!flag) {
-            areaCount++;
-            flag = true;
+  let totalPaintings = +readline().replace(/\r/g, "");
+  let totalPainters = +readline().replace(/\r/g, "");
+  let timeTaken = [];
+  for (let i = 0; i < totalPaintings; i++) {
+    let temp = readline()
+      .replace(/\r/g, "")
+      .split(" ")
+      .map((x) => parseInt(x));
+    timeTaken.push(temp);
+  }
+
+  let timeCountArray = "";
+  if (totalPainters == 1) {
+    let timeCount = 0;
+    for (let j = 0; j < timeTaken.length; j++) {
+      timeCount = parseInt(timeCount) + parseInt(timeTaken[j]);
+      console.log(timeCount);
+    }
+  } else {
+    let timeCount = 0;
+    let reminder = 0;
+    for (let j = 0; j < timeTaken.length; j++) {
+      if (j == 0) {
+        timeCount = timeCount + timeTaken[j][0] + timeTaken[j][1];
+        timeCountArray = timeCountArray + " " + timeCount;
+      } else {
+        if (timeTaken[j - 1][1] > timeTaken[j][0]) {
+          reminder = reminder + (timeTaken[j - 1][1] - timeTaken[j][0]);
+          timeCount = timeCount + timeTaken[j][1];
+          timeCountArray = timeCountArray + " " + timeCount;
+        } else {
+          reminder = reminder + timeTaken[j - 1][1];
+          let tempTime = timeTaken[j][0] - reminder + timeTaken[j][1];
+          if (reminder > timeTaken[j][0]) {
+            reminder = Math.abs(reminder - timeTaken[j][0]);
+          } else {
+            reminder = 0;
           }
-          string2[i] = 1;
+
+          timeCount = timeCount + tempTime;
+          timeCountArray = timeCountArray + " " + timeCount;
         }
       }
     }
-    if (string2.every((item) => item == 1)) {
-      console.log(areaCount);
-      return;
-    }
-    pointer++;
   }
-  console.log(-1);
+
+  console.log(timeCountArray);
 }
