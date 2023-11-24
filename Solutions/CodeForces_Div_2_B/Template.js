@@ -22,18 +22,51 @@ function readline() {
 // ********** Code Start **********
 
 function main() {
-  let n = +readline().replace(/\r/g, "");
-  let tempString = "abcd";
-  let stringPointer = 0;
-  let luckyString = "";
-  for (let i = 0; i < n; i++) {
-    luckyString = luckyString + tempString[stringPointer];
-    if (stringPointer == 3) {
-      stringPointer = 0;
-      continue;
-    }
-    stringPointer++;
+  let numberOfSections = +readline().replace(/\r/g, "");
+  let sections = readline()
+    .replace(/\r/g, "")
+    .split(" ")
+    .map((x) => parseInt(x));
+
+  if (numberOfSections == 1) {
+    console.log(1);
+    return;
+  }
+  let maxValue = 0;
+
+  for (let i = 0; i < numberOfSections; i++) {
+    let rightCount = lookRight(i);
+    let leftCount = lookLeft(i);
+    let total = rightCount + leftCount + 1;
+    maxValue = Math.max(maxValue, total);
   }
 
-  console.log(luckyString);
+  console.log(maxValue);
+
+  function lookRight(start) {
+    if (start == sections.length - 1) return 0;
+
+    let counter = 0;
+    for (let i = start; i < numberOfSections; i++) {
+      if (sections[i + 1] <= sections[i]) {
+        counter++;
+      } else {
+        return counter;
+      }
+    }
+  }
+
+  function lookLeft(start) {
+    if (start == 0) {
+      return 0;
+    }
+    let counter = 0;
+    for (let i = start; i >= 0; i--) {
+      if (sections[i - 1] <= sections[i]) {
+        counter++;
+      } else {
+        return counter;
+      }
+    }
+  }
 }
