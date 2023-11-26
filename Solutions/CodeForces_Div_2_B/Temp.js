@@ -1,20 +1,21 @@
-let p1 = new Promise((resolve, reject) => {
-  resolve("hy");
-});
+class form{
+  constructor(name){
+    this.name=name
+  }
+  formSub(){
+    console.log(`form submited by ${this.name}`)
+  }
 
-let p2 = new Promise((resolve, reject) => {
-  reject("reject");
-});
+  formCan(){
+    console.log(`form cancelled by ${this.name}`)
+  }
+}
 
-p1.then((result) => {
-  console.log(result);
-  return p2; 
-})
-  .then((res) => {
-    console.log(res);
-  })
-  .catch((error) => {
-    console.log(error);
-});
+class fullForm extends form{
+  constructor(fullName,age){
+    super(age)
+  }
+}
 
-console.log("hello 5");
+let newForm=new fullForm(25,"sayooj satheesh");
+newForm.formSub()

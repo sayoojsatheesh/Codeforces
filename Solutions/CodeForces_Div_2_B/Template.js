@@ -22,51 +22,16 @@ function readline() {
 // ********** Code Start **********
 
 function main() {
-  let numberOfSections = +readline().replace(/\r/g, "");
-  let sections = readline()
+  let temp = readline()
     .replace(/\r/g, "")
     .split(" ")
     .map((x) => parseInt(x));
-
-  if (numberOfSections == 1) {
-    console.log(1);
-    return;
-  }
-  let maxValue = 0;
-
-  for (let i = 0; i < numberOfSections; i++) {
-    let rightCount = lookRight(i);
-    let leftCount = lookLeft(i);
-    let total = rightCount + leftCount + 1;
-    maxValue = Math.max(maxValue, total);
-  }
-
-  console.log(maxValue);
-
-  function lookRight(start) {
-    if (start == sections.length - 1) return 0;
-
-    let counter = 0;
-    for (let i = start; i < numberOfSections; i++) {
-      if (sections[i + 1] <= sections[i]) {
-        counter++;
-      } else {
-        return counter;
-      }
-    }
-  }
-
-  function lookLeft(start) {
-    if (start == 0) {
-      return 0;
-    }
-    let counter = 0;
-    for (let i = start; i >= 0; i--) {
-      if (sections[i - 1] <= sections[i]) {
-        counter++;
-      } else {
-        return counter;
-      }
-    }
-  }
+  let a = temp[0];
+  let b = temp[1];
+  let c = temp[2];
+  let d = temp[3];
+  let p = a / b;
+  let q = c / d;
+  let probability = p / (1 - (1 - p) * (1 - q));
+  console.log(probability);
 }
