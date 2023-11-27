@@ -11,7 +11,7 @@ if (n == 1 || n == k) {
 let permutaionArray = "";
 let left;
 
-if (k == n - 1) permutaionArray[1] = 1;
+if (k == n - 1) permutaionArray = '1';
 
 for (let i = 2; i <= n; i++) {
   if (k > 0) {
