@@ -26,12 +26,35 @@ function main() {
     .replace(/\r/g, "")
     .split(" ")
     .map((x) => parseInt(x));
-  let a = temp[0];
-  let b = temp[1];
-  let c = temp[2];
-  let d = temp[3];
-  let p = a / b;
-  let q = c / d;
-  let probability = p / (1 - (1 - p) * (1 - q));
-  console.log(probability);
+  let n = temp[0];
+  let k = temp[1];
+  if (k == 0 && n == 1) {
+    console.log(1);
+    return;
+  }
+  if (n == 1 || n == k) {
+    console.log(-1);
+    return;
+  }
+  let permutaionArray = "";
+  let left;
+
+  if (k == n - 1) permutaionArray[1] = 1;
+
+  for (let i = 2; i <= n; i++) {
+    if (k > 0) {
+      permutaionArray = permutaionArray + " " + i;
+      k--;
+    } else {
+      if (!left) left = i;
+      if (i !== n) {
+        permutaionArray = permutaionArray + " " + i + 1;
+      } else {
+        permutaionArray = permutaionArray + " " + 1;
+        permutaionArray = left + " " + permutaionArray;
+      }
+    }
+  }
+
+  console.log(permutaionArray);
 }
