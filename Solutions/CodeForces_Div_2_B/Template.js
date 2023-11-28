@@ -22,15 +22,30 @@ function readline() {
 // ********** Code Start **********
 
 function main() {
-  let d = +readline().replace(/\r/g, "");
-  let n = +readline().replace(/\r/g, "");
-  let days = readline()
+  let temp = readline()
     .replace(/\r/g, "")
     .split(" ")
     .map((x) => parseInt(x));
-  let manualCount = 0;
-  for (let i = 0; i < n - 1; i++) {
-    manualCount += d - days[i];
+  let n = temp[0];
+  let k = temp[1];
+  let lightVarsion = readline()
+    .replace(/\r/g, "")
+    .split(" ")
+    .map((x) => parseInt(x));
+  let printArray = [];
+  let min;
+  for (let i = 0; i < k; i++) {
+    let maxValue = Math.max(...lightVarsion);
+    let index = lightVarsion.findIndex((item) => item == maxValue);
+    if (i !== k - 1) {
+      printArray.push(index + 1);
+      lightVarsion[index] = 0;
+    } else {
+      printArray.push(index + 1);
+      min = lightVarsion[index];
+    }
   }
-  console.log(manualCount);
+
+  console.log(min);
+  console.log(printArray.join(" "));
 }
