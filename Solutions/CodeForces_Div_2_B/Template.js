@@ -22,39 +22,15 @@ function readline() {
 // ********** Code Start **********
 
 function main() {
-  let temp = readline()
+  let d = +readline().replace(/\r/g, "");
+  let n = +readline().replace(/\r/g, "");
+  let days = readline()
     .replace(/\r/g, "")
     .split(" ")
     .map((x) => parseInt(x));
-  let n = temp[0];
-  let k = temp[1];
-  if (k == 0 && n == 1) {
-    console.log(1);
-    return;
+  let manualCount = 0;
+  for (let i = 0; i < n - 1; i++) {
+    manualCount += d - days[i];
   }
-  if (n == 1 || n == k) {
-    console.log(-1);
-    return;
-  }
-  let permutaionArray = "";
-  let left;
-
-  if (k == n - 1) permutaionArray[1] = 1;
-
-  for (let i = 2; i <= n; i++) {
-    if (k > 0) {
-      permutaionArray = permutaionArray + " " + i;
-      k--;
-    } else {
-      if (!left) left = i;
-      if (i !== n) {
-        permutaionArray = permutaionArray + " " + i + 1;
-      } else {
-        permutaionArray = permutaionArray + " " + 1;
-        permutaionArray = left + " " + permutaionArray;
-      }
-    }
-  }
-
-  console.log(permutaionArray);
+  console.log(manualCount);
 }
