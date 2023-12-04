@@ -22,55 +22,50 @@ function readline() {
 // ********** Code Start **********
 
 function main() {
-  let temp = readline()
-    .replace(/\r/g, "")
-    .split(" ")
-    .map((x) => parseInt(x));
-  let students = temp[0];
-  let laces = temp[1];
-  let orderOfStudents = [];
-  for (let i = 0; i < laces; i++) {
-    let temp = readline()
-      .replace(/\r/g, "")
-      .split(" ")
-      .map((x) => parseInt(x));
-    orderOfStudents.push(temp);
+  let intialMoney = readline().replace(/\r/g, "");
+  let [integer, decimal] = splitMoneyToIntegerAndFraction(intialMoney);
+  let formattedInteger = formatInteger(integer);
+  let formattedDecimal = formatDecimal(decimal);
+  let sign = formattedInteger[0];
+  let finalFormattedAmount = "";
+  if (sign === "-") {
+    finalFormattedAmount = formattedInteger.replace("-", "");
+    finalFormattedAmount =
+      "(" + "$" + finalFormattedAmount + "." + formattedDecimal + ")";
+  } else {
+    finalFormattedAmount = "$" + formattedInteger + "." + formattedDecimal;
   }
-  let totalGroups = 0;
-  while (true) {
-    // create a temp object //
-    let order = {};
-    let flag = false;
 
-    for (let i = 0; i < orderOfStudents.length; i++) {
-      if (!order[orderOfStudents[i][0]]) {
-        order[orderOfStudents[i][0]] = { count: 1, index: i };
+  console.log(finalFormattedAmount);
+
+  function splitMoneyToIntegerAndFraction(string) {
+    let splited = string.split(".");
+    let integer = splited[0];
+    let fraction = splited[1] ? splited[1] : "00";
+    return [integer, fraction];
+  }
+
+  function formatDecimal(decimalString) {
+    if (decimalString.length === 2) return decimalString;
+    if (decimalString.length === 1) return decimalString + "0";
+    if (decimalString.length > 2) {
+      let tempString = decimalString[0] + decimalString[1];
+      return tempString;
+    }
+  }
+
+  function formatInteger(integerString) {
+    let count = 0;
+    let tempString = "";
+    for (let i = integerString.length - 1; i >= 0; i--) {
+      count++;
+      if (count === 3 && i !== 0 && integerString[i - 1] !== "-") {
+        tempString = "," + integerString[i] + tempString;
+        count = 0;
       } else {
-        order[orderOfStudents[i][0]].count++;
-      }
-
-      if (!order[orderOfStudents[i][1]]) {
-        order[orderOfStudents[i][1]] = { count: 1, index: i };
-      } else {
-        order[orderOfStudents[i][1]].count++;
+        tempString = integerString[i] + tempString;
       }
     }
-
-    for (let key in order) {
-      if (key !== -1) {
-        if (order[key].count === 1) {
-          orderOfStudents[order[key].index][0] = -1;
-          orderOfStudents[order[key].index][1] = -1;
-          flag = true;
-        }
-      }
-    }
-
-    if (flag) {
-      totalGroups++;
-    } else {
-      console.log(totalGroups);
-      return;
-    }
+    return tempString;
   }
 }
